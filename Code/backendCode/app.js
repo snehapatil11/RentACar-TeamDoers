@@ -2,7 +2,6 @@ var AWS = require('aws-sdk')
 var express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const fileRoutes = require("./Routes/fileupload")
 require('dotenv').config();
 var app = express();
 
@@ -15,12 +14,10 @@ let awsConfig = {
 
 app.use(cors());
 app.options('*', cors());
-app.use("/api", cors(), fileRoutes);
 
 
 AWS.config.update(awsConfig);
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-var s3 = new AWS.S3();
 
 app.use(bodyParser.json({ type: 'application/json' }));
 
@@ -28,12 +25,12 @@ app.listen(8081, () => {
     console.log("Server running on port 8081");
 })
 app.get('/', function (req, res) {
-  res.send('Hello World!')
+  res.send('Hello World from Team Doers!')
 })
 
-app.get('/allusers', function (req, res) {
+app.get('/allVehicles', function (req, res) {
     const params = { 
-      TableName: "storageFiles"
+      TableName: "Vehicle"
     }    
     dynamoDb.scan(params, (error, result) => {
   
