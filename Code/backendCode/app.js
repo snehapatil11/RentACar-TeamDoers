@@ -28,7 +28,7 @@ app.get('/', function (req, res) {
   res.send('Hello World from Team Doers!')
 })
 
-app.get('/allVehicles', function (req, res) {
+app.get('/api/allVehicles', function (req, res) {
     const params = { 
       TableName: "Vehicle"
     }    
@@ -40,7 +40,6 @@ app.get('/allVehicles', function (req, res) {
       }
   
       if (result) { 
-        console.log(result.Items);
         return res.json(result.Items);
       } 
       else { return res.status(404).json({ error: "User not found" }); }  
