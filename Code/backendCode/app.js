@@ -47,6 +47,58 @@ app.get('/api/allVehicles', function (req, res) {
   
 })
 
+app.get('/api/vehicleTransactions/:vehicleId', function (req, res) {
+  const id = req.params.vehicleId;
+  console.log(id);
+  const params = { 
+    TableName: "VehicleTransaction",
+    FilterExpression: '#vehicleId = :vehicleId',
+    ExpressionAttributeNames: {
+        '#vehicleId': 'vehicleId',
+    },
+    ExpressionAttributeValues: {
+        ':vehicleId': id,
+    },
+  }    
+  dynamoDb.scan(params, (error, result) => {
+
+    if (error) {  
+      console.log(error);  
+      return res.status(400).json({ error: 'Could not get user' });  
+    }
+
+    if (result) { 
+      return res.json(result.Items);
+    } 
+    else { return res.status(404).json({ error: "User not found" }); }  
+  });
+
+})
+
+app.post('/api/postVehicleTransaction', function(req, res){
+  const params = {  
+    TableName: "VehicleTransaction",
+    Item: req.body
+  }
+  console.log(params);
+  dynamoDb.put(params, (error, result) =>{
+    
+    if(error){
+      console.log(error);
+      console.log(params);
+      return res.status(400).json({ error: 'Could not insert vehicle transaction' });
+    }
+    if(result){
+      console.log(result);
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      return res.json({result});
+    }
+    else
+    return res.status(400).json({ error: 'Could not insert vehicle transaction' });  
+  })
+
+})
+
 app.get('/users/:email', function (req, res) {
   const useremail = req.params.email;
   console.log(useremail);
@@ -100,30 +152,6 @@ app.get('/file/:filename', function (req, res) {
     } 
     else { return res.status(404).json({ error: "User not found" }); }  
   });
-
-})
-
-app.post('/postusers', function(req, res){
-    const params = {  
-      TableName: "storageFiles",
-      Item: req.body
-    }
-    console.log(params);
-    dynamoDb.put(params, (error, result) =>{
-      
-      if(error){
-        console.log(error);
-        console.log(params);
-        return res.status(400).json({ error: 'Could not insert user' });
-      }
-      if(result){
-        console.log(result);
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        return res.json({result});
-      }
-      else
-      return res.status(400).json({ error: 'Could not insert user1' });  
-    })
 
 })
 
