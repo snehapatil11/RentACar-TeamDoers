@@ -4,6 +4,7 @@ import WelcomePage from './welcomePage';
 import LoginForm from './login';
 import Home from './home';
 import App1 from './test';
+import RegistrationForm from './joinus';
 
 // Main Component
 class Main extends React.Component {
@@ -15,6 +16,7 @@ class Main extends React.Component {
         <Route path="/welcome/" component={WelcomePage} />
         <Route path="/signin/" component={LoginForm} />
         <Route path="/home/" component={Home} />
+        <Route path="/joinus/" component={RegistrationForm} />
         <Route path="/app1/" component={App1} />
 
       </div>
