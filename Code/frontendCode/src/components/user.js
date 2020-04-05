@@ -5,14 +5,13 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import Headers from './header';
+import UserHeader from './userHeader';
 import Footer from './footer';
 import { vehicleServices } from "../services/vehicleServices";
 import ReservationForm from './reservationForm';
 
 
-
-class Home extends React.Component {
+class User extends React.Component {
     state = {
       searchText: '',
       searchedColumn: '',
@@ -21,7 +20,6 @@ class Home extends React.Component {
       vehicleId:'',
       reservationFormVisible: false
     };
-
 
     componentDidMount(){        
         this.getVehiclesData();
@@ -234,7 +232,7 @@ class Home extends React.Component {
     return (
     <div>
         <div>
-            <Headers selectedKey={['3']} />
+            <UserHeader selectedKey={['1']} />
         </div>
         <div style={{ textAlign: 'center'}}>
             Vehicle and Vehicle Locations
@@ -267,4 +265,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default User;

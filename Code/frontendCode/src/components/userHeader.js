@@ -17,7 +17,11 @@ class UserHeader extends Component{
       redirectPage: <Redirect to = {{pathname:'/user/profile'}} />
     }) 
   }
-
+  clickedHome = () => {
+    this.setState({
+      redirectPage: <Redirect to = {{pathname:'/user/'}} />
+    }) 
+  }
 
   clickedLogout = () => {
     this.setState({
@@ -40,8 +44,9 @@ return (
       style={{  fontWeight:'bold' }}
     >
 
-      <Menu.Item key="2" onClick={this.clickedLogout} style={{color:'white', float:'right'}}>Logout</Menu.Item>
-      <Menu.Item key="1" onClick={this.clickedProfile} style={{color:'white', float:'right'}}>Profile</Menu.Item>
+      <Menu.Item key="3" onClick={this.clickedLogout} style={{color:'white', float:'right'}}>Logout</Menu.Item>
+      <Menu.Item key="2" onClick={this.clickedProfile} style={{color:'white', float:'right'}}>Profile</Menu.Item>
+      <Menu.Item key="1" onClick={this.clickedHome} style={{color:'white', float:'right'}}>Home</Menu.Item>
      
     </Menu>
   
