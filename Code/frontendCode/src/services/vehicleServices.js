@@ -7,7 +7,7 @@ export const vehicleServices  = {
 }
 
 export const apiConfig = {
-    endpointURL: "http://localhost:8081/api"
+    endpointURL: "http://172.31.24.166:4000/api"
 }
 
 function getVehiclesData(email) 
