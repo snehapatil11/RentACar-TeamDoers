@@ -21,8 +21,8 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 app.use(bodyParser.json({ type: 'application/json' }));
 
-app.listen(8081, () => {
-    console.log("Server running on port 8081");
+app.listen(4000, () => {
+    console.log("Server running on port 4000");
 })
 app.get('/', function (req, res) {
   res.send('Hello World from Team Doers!')
@@ -47,6 +47,24 @@ app.get('/api/allVehicles', function (req, res) {
   
 })
 
+app.get('/allVehicles', function (req, res) {
+  const params = { 
+    TableName: "Vehicle"
+  }    
+  dynamoDb.scan(params, (error, result) => {
+
+    if (error) {  
+      console.log(error);  
+      return res.status(400).json({ error: 'Could not get user' });  
+    }
+
+    if (result) { 
+      return res.json(result.Items);
+    } 
+    else { return res.status(404).json({ error: "User not found" }); }  
+  });
+
+})
 app.get('/api/vehicleTransactions/:vehicleId', function (req, res) {
   const id = req.params.vehicleId;
   console.log(id);

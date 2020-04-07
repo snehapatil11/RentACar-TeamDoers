@@ -1,3 +1,4 @@
 /Code/frontendCode/node_modules
+/Code/frontendCode/build
 /Code/backendCode/node_modules
 /Code/backendCode/.env
