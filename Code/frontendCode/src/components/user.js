@@ -204,7 +204,7 @@ class User extends React.Component {
           var data1 = this.state.vehicleTransactionData.filter(data => {
             
             //return data.vehicleId === vehicle && data.rentedTime < rentTime && data.rentEndTime > rentTime && data.isReserved === true;
-            return moment(data.rentedDateTime).isSameOrBefore(rentDateTime) && moment(data.rentEndDateTime).isSameOrAfter(rentEndDateTime) && data.isReserved === true;
+            return (moment(data.rentedDateTime).isSameOrBefore(rentDateTime) || moment(data.rentEndDateTime).isSameOrAfter(rentEndDateTime)) && data.isReserved === true;
           });
           console.log(data1);
 
