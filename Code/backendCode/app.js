@@ -216,3 +216,60 @@ app.delete('/deletefiledata/:fileId',function(req, res){
     }
   });
 })
+
+
+
+app.post('/user/add/', function(req, res){
+    const params = {  
+      TableName: "RentalUser",
+      Item: req.body
+    }
+    console.log(params);
+    dynamoDb.put(params, (error, result) =>{
+      
+      if(error){
+        console.log(error);
+        console.log(params);
+        return res.status(400).json({ error: 'Could not insert user' });
+      }
+      if(result){
+        console.log(result);
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        return res.json({result});
+      }
+      else
+      return res.status(400).json({ error: 'Could not insert user' });  
+    })
+
+})
+
+app.get('/user/info/:userId', function(req, res){
+    const userId = Number(req.params.userId);
+  console.log(userId);
+  const params = { 
+    TableName: "RentalUser",
+    FilterExpression: '#userId = :userId',
+    ExpressionAttributeNames: {
+        '#userId': 'userId',
+    },
+    ExpressionAttributeValues: {
+        ':userId': userId,
+    },
+  }    
+
+  console.log(params)
+  dynamoDb.scan(params, (error, result) => {
+
+    if (error) {  
+      console.log(error);  
+      return res.status(400).json({ error: 'Could not get user' });  
+    }
+
+    if (result) { 
+        console.log(result.Items)
+      return res.json(result.Items);
+    } 
+    else { return res.status(404).json({ error: "User not found" }); }  
+  });
+})
+
