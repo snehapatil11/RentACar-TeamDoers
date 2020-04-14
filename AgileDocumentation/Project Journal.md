@@ -94,6 +94,89 @@
 
 ### Tasks Planned
 ```
+1. Backend Implementation for Search and Browse functionality.
+2. UI design for Vehicle reservation.
+
+```
+
+## Blockers
+```
+```
+## Week 6
+
+### Tasks Completed
+```
+1. Backend Implementation for Search and Browse functionality.
+2. UI design for Vehicle reservation.
+
+
+```
+
+### Tasks Planned
+```
+1. Complete the Vehicle reservation functionality
+```
+
+## Blockers
+```
+```
+## Week 7
+
+### Tasks Completed
+```
+1. Added pagination for Search and Browse vehicle table
+2. Completed the backend for Vehicle reservation.
+3. Completed the Vehicle reservation functionality with all the conditions for vehicle reservation date and time.
+```
+
+### Tasks Planned
+```
+1. React and Node application deployment on AWS EC2.
+2. Attaching Load balancer wih auto scaling groups to EC2. 
+```
+
+## Blockers
+```
+```
+## Week 8
+
+### Tasks Completed
+```
+
+```
+
+### Tasks Planned
+```
+
+```
+
+## Blockers
+```
+```
+## Week 9
+
+### Tasks Completed
+```
+
+```
+
+### Tasks Planned
+```
+
+```
+
+## Blockers
+```
+```
+## Week 10
+
+### Tasks Completed
+```
+
+```
+
+### Tasks Planned
+```
 
 ```
 
