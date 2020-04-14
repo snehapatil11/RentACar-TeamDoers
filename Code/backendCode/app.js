@@ -21,8 +21,8 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 app.use(bodyParser.json({ type: 'application/json' }));
 
-app.listen(4002, () => {
-    console.log("Server running on port 4002");
+app.listen(4000, () => {
+    console.log("Server running on port 4000");
 })
 app.get('/', function (req, res) {
   res.send('Hello World from Team Doers!')
