@@ -146,14 +146,13 @@ class User extends React.Component {
           title: 'Model',
           dataIndex: 'model',
           key: 'model',
-          width: '30%',
+          width: '12%',
           ...this.getColumnSearchProps('model'),
         },
         {
           title: 'Make',
           dataIndex: 'make',
           key: 'make',
-          width: '20%',
           ...this.getColumnSearchProps('make'),
         },
         {
@@ -163,7 +162,38 @@ class User extends React.Component {
           ...this.getColumnSearchProps('vehicleType'),
         },
         {
-          title: 'Rental Location Name',
+          title: 'Mileage',
+          dataIndex: 'currentMileage',
+          key: 'currentMileage',
+        },        
+        {
+          title: 'Hourly Price',
+          dataIndex: 'hourlyPrice',
+          key: 'hourlyPrice',
+        },
+        {
+          title: 'Last Serviced On',
+          dataIndex: 'lastServiceDate',
+          key: 'lastServiceDate',
+        },
+        {
+          title: 'Year',
+          dataIndex: 'year',
+          key: 'year',
+        },
+        {
+          title: 'Condition',
+          dataIndex: 'condition',
+          key: 'condition',
+        },
+        
+        {
+          title: 'Registration Tag',
+          dataIndex: 'registrationTag',
+          key: 'registrationTag',
+        },
+        {
+          title: 'Rental Location',
           dataIndex: 'rentalLocationName',
           key: 'rentalLocationName',
           ...this.getColumnSearchProps('rentalLocationName'),
@@ -234,8 +264,8 @@ class User extends React.Component {
         <div>
             <UserHeader selectedKey={['1']} />
         </div>
-        <div style={{ textAlign: 'center'}}>
-            Vehicle and Vehicle Locations
+        <div style={{ textAlign: 'center', marginBottom: "20px", }}>
+            <h1>Vehicle and Vehicle Locations</h1>
         </div>
         
         <Table pagination= { {pageSizeOptions: ['10', '20'], showSizeChanger: true}} columns={columns} dataSource={this.state.vehiclesData} />
