@@ -18,10 +18,12 @@ class User extends React.Component {
       visible: false,
       filterRentalLocation:'',
       vehicleId:'',
+      userId:'',
       reservationFormVisible: false
     };
 
-    componentDidMount(){        
+    componentDidMount(){       
+      this.state.userId = localStorage.getItem('user_id'); 
         this.getVehiclesData();
     }    
         
@@ -244,7 +246,7 @@ class User extends React.Component {
             this.showModal();
           }
           else{
-            vehicleServices.storeVehicleTransaction(vehicle, 1, true, false,rentDateTime ,rentLength, rentEndDateTime, rentDateTime) 
+            vehicleServices.storeVehicleTransaction(vehicle, this.state.userId, true, false,rentDateTime ,rentLength, rentEndDateTime, rentDateTime) 
             .then(response => {
               console.log(response);
 
