@@ -356,6 +356,59 @@ app.post('/user/login/', function(req, res){
 })
 
 
+app.post('/user/cancelMem/', function(req, res){
+   
+    var params = {
+        TableName: "RentalUser",
+        Key: 
+        {
+          "userId": req.body.userID      
+        },
+        UpdateExpression: "SET  isMember= :value, memEndDate= :value1",
+        ExpressionAttributeValues:{
+            ":value": 0,
+            ":value1":req.body.endDate
+        },
+        ReturnValues:"UPDATED_NEW"
+      };
+      console.log(params);
+      dynamoDb.update(params, function(err, data) {
+        if (err) {
+            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+            res.json(data);
+        }
+      });
+
+})
+
+
+app.post('/user/extendMem/', function(req, res){
+    var params = {
+        TableName: "RentalUser",
+        Key: 
+        {
+          "userId": req.body.userID   
+        },
+        UpdateExpression: "SET  memEndDate= :value",
+        ExpressionAttributeValues:{
+            ":value": req.body.endDate,
+        },
+        ReturnValues:"UPDATED_NEW"
+      };
+      console.log(params);
+      dynamoDb.update(params, function(err, data) {
+        if (err) {
+            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+            res.json(data);
+        }
+      });
+
+
+})
 
 
 /** Below added by Manasa on 04/15/2020 for Admin to modify memberships - Start */
