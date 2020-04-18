@@ -6,12 +6,14 @@ import Swal from 'sweetalert2';
 import valuesExport from '../config/config';
 import moment from 'moment';
 import axios from 'axios';
+import { Redirect } from 'react-router';
+
 
 const { Panel } = Collapse;
 const { Option } = Select;
+ 
 
-
-let user_id = 1;
+let user_id = localStorage.getItem('user_id');
 class UserProfile extends Component {
 
     constructor() {
@@ -27,19 +29,20 @@ class UserProfile extends Component {
             userID: '',
             months: 0,
             ready: false,
+            redirectPage:'',
 
         }
-
+        user_id = localStorage.getItem('user_id');
     }
 
     async componentDidMount() {
 
+        if(user_id){
         await axios.get(valuesExport.url + 'user/info/' + user_id)
             .then((response) => {
 
 
                 if (response.data) {
-                    console.log(moment(response.data[0].memStartDate, 'DD/MM/YYYY').format('DD/MM/YYYY'))
                     this.setState({
                         userinfo: response.data,
                         
@@ -58,7 +61,7 @@ class UserProfile extends Component {
                 console.log(error);
             })
 
-
+        }
 
     }
 
@@ -73,7 +76,13 @@ class UserProfile extends Component {
         }).then((result) => {
 
             if (result.value) {
-                axios.post(valuesExport.url + 'user/cancelMem/', JSON.stringify({ userID: this.state.userID }), {
+                let endValue = moment().format('DD/MM/YYYY');
+                this.setState({
+                    endDate: moment(),
+                   
+                })
+
+                axios.post(valuesExport.url + 'user/cancelMem/', JSON.stringify({ userID: this.state.userID, endDate:endValue }), {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
@@ -193,10 +202,14 @@ class UserProfile extends Component {
 
 
     render() {
+        let redirectPage = null;
+        if (!localStorage.getItem("user_id") ||  localStorage.getItem("userType")!=='user' ) {
+            redirectPage = <Redirect to="/welcome/" />
+        }
         return (
             <div>
                 <div>
-
+{redirectPage}
                 </div>
                 {this.state.ready && <div>
                     <div>
