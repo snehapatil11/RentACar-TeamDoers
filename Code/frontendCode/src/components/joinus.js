@@ -1,3 +1,4 @@
+
 import React from 'react';
 import "antd/dist/antd.css";
 import { validate } from 'driver-license-validator';
@@ -9,6 +10,7 @@ import Footer from './footer';
 import Swal from 'sweetalert2';
 import valuesExport from '../config/config';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 
 import {
@@ -73,6 +75,7 @@ class RegistrationForm extends React.Component {
             showIt: true,
             price:300,
             months:6,
+            redirectPage:'',
         }
     }
 
@@ -89,8 +92,13 @@ class RegistrationForm extends React.Component {
 
     onFinish = values => {
         Swal.fire('Welcome', 'Payment successful!', 'success')
+        let userId = 0;
+        for(let i =0 ;i <values.username.length;i++){
+            userId+=values.username[i].charCodeAt();
+        }
+        
         var insertUser={
-            userId:1,
+            userId:userId,            
             name:values.username,
             emailid:values.email,
             password:values.password,
@@ -122,9 +130,9 @@ class RegistrationForm extends React.Component {
             }
             else {
          
-              this.setState({
-                
-              })
+                this.setState({
+                    redirectPage: <Redirect to={{ pathname: '/signin/' }} />
+                    })
             }
           })
           .catch(err => {
@@ -155,13 +163,7 @@ class RegistrationForm extends React.Component {
         }
     }
 
-    submitPayment = () => {
-        Swal.fire('Welcome', 'Payment successful!', 'success')
-
-        this.setState({
-            showSubmit: true
-        })
-    }
+  
     handleInputFocus = (e) => {
         this.setState({ focus: e.target.name });
     }
@@ -188,14 +190,25 @@ class RegistrationForm extends React.Component {
             number: value
         })
         if (validNumbers.includes((newValue))) {
-
+            this.setState({
+                showSubmit:true
+            })
             return Promise.resolve()
 
         }
-    
-        return Promise.reject('Invalid Credit card Number')
+    else{
+        this.setState({
+            showSubmit: false
+        })
+        return Promise.reject('Invalid Credit card Number');
+    }
         }
+        else{
+            this.setState({
+                showSubmit: false
+            })
         return Promise.reject()
+        }
 
     }
 
@@ -268,6 +281,7 @@ class RegistrationForm extends React.Component {
 
         return (
             <div>
+                                {this.state.redirectPage}
                 <div>
                     <Headers selectedKey={['2']} />
                 </div>
@@ -278,7 +292,7 @@ class RegistrationForm extends React.Component {
                         name="register"
                         onFinish={this.onFinish}
                         scrollToFirstError
-                        style={{ paddingTop: '2%' }}
+                        style={{ paddingTop: '2%', marginBottom:'10%' }}
                        
                     >
                         <Form.Item
@@ -535,21 +549,21 @@ class RegistrationForm extends React.Component {
                         <Form.Item
                             {...tailFormItemLayout}
                         >
-                            <Button type="primary" htmlType="submit" >
+                            <Button type="primary" htmlType="submit" disabled={!this.state.showSubmit}>
                                 Pay & Register
         </Button>
                         </Form.Item>
 
-                        {this.state.showIt && <Form.Item {...tailFormItemLayout}>
+                        {/* {this.state.showIt && <Form.Item {...tailFormItemLayout}>
                             <Button type="primary" disabled={!this.state.showSubmit}>
                                 Register
         </Button>
-                        </Form.Item>}
+                        </Form.Item>} */}
 
                     </Form>
                 </div>
                 <div>
-                    <Footer />
+                    <Footer/>
                 </div>
 
 
