@@ -8,6 +8,7 @@ import RegistrationForm from './joinus';
 /* Added by Manasa for Admin module. log: 13 April 2020 */
 // import AdminLogin from './adminLogin'
 import AdminForm from './admin'
+import AdminMembership from './adminMembership'
 
 // Main Component
 class Main extends React.Component {
@@ -24,6 +25,7 @@ class Main extends React.Component {
         {/* Added by Manasa for Admin module. log: 13 April 2020 */}
         {/* <Route path="/admin/" component={AdminLogin} /> */}
         <Route path="/admin/" component={AdminForm} />
+        <Route path="/adminMembership/" component={AdminMembership} />
 
       </div>
     );

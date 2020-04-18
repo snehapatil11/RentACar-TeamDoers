@@ -273,3 +273,56 @@ app.get('/user/info/:userId', function(req, res){
   });
 })
 
+
+
+/** Below added by Manasa on 04/15/2020 for Admin to modify memberships - Start */
+
+
+app.get('/api/allMemberships', function (req, res) {
+  const params = { 
+    TableName: "Membership"
+  }    
+  dynamoDb.scan(params, (error, result) => {
+
+    if (error) {  
+      console.log(error);  
+      return res.status(400).json({ error: 'Could not get user' });  
+    }
+
+    if (result) { 
+      return res.json(result.Items);
+    } 
+    else { return res.status(404).json({ error: "User not found" }); }  
+  });
+
+})
+
+app.post('/api/modifyMembership', function(req, res){
+  console.log("Manasa ==> Hit this modifyMembership. ");
+  console.log("\n \n " + JSON.stringify(req.body))
+  // console.log(params.stringify());
+  var time = new Date().toDateString() + " " + new Date().toLocaleTimeString();
+  var params = {
+    TableName: "Membership",
+    Key: 
+    {
+      "membershipId": req.body.membershipId      
+    },
+    UpdateExpression: "SET endDate = :time",
+    ExpressionAttributeValues:{
+        ":time": time
+    },
+    ReturnValues:"UPDATED_NEW"
+  };
+  console.log(params);
+  dynamoDb.update(params, function(err, data) {
+    if (err) {
+        console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+    } else {
+        console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+        res.json(data);
+    }
+  });
+})
+
+/** Below added by Manasa on 04/15/2020 for Admin to modify memberships - End */
