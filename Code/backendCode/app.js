@@ -280,6 +280,84 @@ app.get('/user/info/:userId', function(req, res){
 
 
 
+app.post('/user/login/', function(req, res){
+
+  let emailid = req.body.emailid;
+  if(req.body.userType === "admin"){
+    const params = { 
+      TableName: "Admin",
+      FilterExpression: '#emailid = :emailid',
+      ExpressionAttributeNames: {
+          '#emailid': 'emailid',
+      },
+      ExpressionAttributeValues: {
+          ':emailid': emailid,
+      },
+    }    
+    dynamoDb.scan(params, (error, result) => {
+  
+      if (error) {  
+        console.log(error);  
+        return res.status(400).json({ error: 'Could not get user' });  
+      }
+  
+      if (result.Items.length) { 
+        if(result.Items[0].password === req.body.password){
+          return res.json(result.Items);
+        }
+        else{
+          return res.status(404).json({ error: "Incorrect password" }); 
+        
+        }
+        
+      } 
+      else { 
+        console.log('user not found')
+        return res.status(404).json({ error: "User not found" }); }  
+  
+      })
+    }
+  else{
+    const params = { 
+      TableName: "RentalUser",
+      FilterExpression: '#emailid = :emailid',
+      ExpressionAttributeNames: {
+          '#emailid': 'emailid',
+      },
+      ExpressionAttributeValues: {
+          ':emailid': emailid,
+      },
+    }    
+
+    console.log(params)
+    dynamoDb.scan(params, (error, result) => {
+  
+      if (error) {  
+        console.log(error);  
+        return res.status(400).json({ error: 'Could not get user' });  
+      }
+  
+      if (result.Items.length) { 
+        if(result.Items[0].password === req.body.password){
+          return res.json(result.Items);
+        }
+        else{
+          return res.status(404).json({ error: "Incorrect password" }); 
+        
+        }
+        
+      } 
+      else { 
+        console.log('user not found')
+        return res.status(404).json({ error: "User not found" }); }  
+    });
+  
+  }
+})
+
+
+
+
 /** Below added by Manasa on 04/15/2020 for Admin to modify memberships - Start */
 
 
