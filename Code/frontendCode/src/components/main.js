@@ -9,7 +9,7 @@ import RegistrationForm from './joinus';
 // import AdminLogin from './adminLogin'
 import AdminForm from './admin'
 import AdminMembership from './adminMembership'
-
+import ReturnCancel from './userReturnCancel'
 // Main Component
 class Main extends React.Component {
   render() {
@@ -26,6 +26,7 @@ class Main extends React.Component {
         {/* <Route path="/admin/" component={AdminLogin} /> */}
         <Route path="/admin/" component={AdminForm} />
         <Route path="/adminMembership/" component={AdminMembership} />
+        <Route path="/ReturnCancel/" component={ReturnCancel} />
 
       </div>
     );

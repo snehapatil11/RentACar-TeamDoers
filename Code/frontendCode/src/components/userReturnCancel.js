@@ -7,7 +7,7 @@ import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import UserHeader from './userHeader';
 import Footer from './footer';
-import { modifyMembership } from "../services/modifyMembership";
+import { returnCancel } from "../services/returnCancel";
 import ReservationForm from './reservationForm';
 import axios from 'axios';
 
@@ -15,54 +15,36 @@ export const apiConfig = {
     endpointURL: "http://localhost:4002/api"
 }
 
-class AdminMembership extends React.Component {
+class ReturnCancel extends React.Component {
     state = {
       searchText: '',
       searchedColumn: '',
       visible: false,
-    //   filterRentalLocation:'',
-    //   vehicleId:'',
       membershipId:'',
-      reservationFormVisible: false
     };
 
     componentDidMount(){        
-        // alert("In adminMembership.js");
-        this.getAllMemberships(); //
+        this.getAllReservations(); 
     }    
         
-    getAllMemberships() {
-        modifyMembership.getAllMemberships().then(membershipData =>{ 
-            this.setState({membershipData: membershipData})
-            console.log(membershipData);
+    getAllReservations() {
+        returnCancel.getAllReservations().then(reservationData =>{ 
+            this.setState({reservationData: reservationData})
+            console.log(reservationData);
         });
+
     }
-    
-    // modify(record, e){
-    //     var membershipId = record.membershipId;
-    //     modifyMembership.postMembership(membershipId).then(membershipId =>{ 
-    //         this.setState({membershipId: record.membershipId})
-    //         console.log(membershipId);
-    //     });
-    //     // alert(" Terminated successfully !")
-    // }
 
     modify(record, e) {
       e.preventDefault()
-      const membershipObject = {
-        membershipId: record.membershipId,
-      };
-      // alert(membershipObject.toString);
-      const url=`${apiConfig.endpointURL}/modifyMembership`;
-      // alert(" The url is: " + url);// The url is: http://localhost:4002/api/modifyMembership
-      axios.post(url, {membershipId: record.membershipId})
+
+      const url=`${apiConfig.endpointURL}/returnCancel`;
+      axios.post(url, {vehicleTransactionId: record.vehicleTransactionId})
           .then((res) => {
               console.log(res.data)
           }).catch((error) => {
               console.log(error)
           });
-
-      // this.setState({ name: '', email: '' })
 
       //Refresh the page again
       window.location.reload(false);
@@ -76,8 +58,8 @@ class AdminMembership extends React.Component {
 
     handleOk = e => {
       console.log(e);
-      const data = this.state.membershipData;
-      this.setState({ membershipData: data });
+      const data = this.state.reservationData;
+      this.setState({ reservationData: data });
       this.setState({
         visible: false,
       });
@@ -90,7 +72,7 @@ class AdminMembership extends React.Component {
       });
     };
     
-    // ** Done
+    // ** Part - 2 =====================================================================================
     
     getColumnSearchProps = dataIndex => ({
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -156,73 +138,45 @@ class AdminMembership extends React.Component {
       this.setState({ searchText: '' });
     };
 
-// Done**2
+    // ** Part - 3 =====================================================================================
 
     render() {
       const fields = [
-        // {
-        //   name: ['vehicleType'],
-        //   value: this.state.filterVehicleType,
-        // },
-        // {
-        //   name: ['rentalLocation'],
-        //   value: this.state.filterRentalLocation,
-        // },
       ];
       const columns = [
         {
-          title: 'Membership ID',
-          dataIndex: 'membershipId',
-          key: 'membershipId',
-          width: '30%',
-          ...this.getColumnSearchProps('membershipId'),
+            title: 'Transaction ID',
+            dataIndex: 'vehicleTransactionId',
+            key: 'vehicleTransactionId',
+            width: '15%',
+            ...this.getColumnSearchProps('vehicleTransactionId'),
+        },
+        {
+          title: 'Vehicle ID',
+          dataIndex: 'vehicleId',
+          key: 'vehicleId',
+          width: '10%',
+          ...this.getColumnSearchProps('vehicleId'),
+        },
+        {
+          title: 'Rent Duration',
+          dataIndex: 'rentedLength',
+          key: 'rentedLength',
+          width: '20%',
+          ...this.getColumnSearchProps('rentedLength'),
+        },
+        {
+          title: 'Start Date',
+          dataIndex: 'rentedDateTime',
+          key: 'rentedDateTime',
+          ...this.getColumnSearchProps('rentedDateTime'),
         },
         {
           title: 'End Date',
-          dataIndex: 'endDate',
-          key: 'endDate',
-          width: '20%',
-          ...this.getColumnSearchProps('endDate'),
+          dataIndex: 'rentEndDateTime',
+          key: 'rentEndDateTime',
+          ...this.getColumnSearchProps('rentEndDateTime'),
         },
-        {
-          title: 'Owner',
-          dataIndex: 'owner',
-          key: 'owner',
-          ...this.getColumnSearchProps('owner'),
-        },
-        {
-          title: 'Price',
-          dataIndex: 'price',
-          key: 'price',
-          ...this.getColumnSearchProps('price'),
-        },
-        // 
-        {
-            title: 'Remark',
-            dataIndex: 'remark',
-            key: 'remark',
-            ...this.getColumnSearchProps('remark'),
-        },
-        {
-            title: 'Start Date',
-            dataIndex: 'startDate',
-            key: 'startDate',
-            ...this.getColumnSearchProps('startDate'),
-        },
-        {
-            title: 'Status',
-            dataIndex: 'status',
-            key: 'status',
-            ...this.getColumnSearchProps('status'),
-        },
-        {
-            title: 'User ID',
-            dataIndex: 'userId',
-            key: 'userId',
-            ...this.getColumnSearchProps('userId'),
-        },
-
-        // 
         {
           title: 'Action',
           dataIndex: '',
@@ -234,8 +188,8 @@ class AdminMembership extends React.Component {
                   this.modify(record, e); 
                 }}
 
-              size="small" style={{ width: 90 }}>
-                  Terminate
+              size="small" style={{ width: '100%' }}>
+                  Cancel/Return
               </Button>
             </span>
           ),
@@ -243,51 +197,39 @@ class AdminMembership extends React.Component {
 
       ];
 
-// Done ** 3
+    // ** Part - 4 =====================================================================================
 
     const onCreate = values => {          
         console.log("Received values of form: ", values);
-        var member = this.state.membershipId;
+        // var userId = this.state.userId;
+        /* Hard coding user Id - Start */
+        var userId=5;
+        /* Hard coding user Id - End */
         var startDate = moment(values.startDate).format('YYYY-MM-DD HH-mm');
         var endDate = moment(values.endDate).format('YYYY-MM-DD HH-mm');
         
-        
-        modifyMembership.getAllMemberships(member, startDate).then(membershipData =>{           
-          this.setState({membershipData: membershipData});
-          var data1 = this.state.membershipData;
+        returnCancel.getAllReservations(userId).then(reservationData =>{           
+          this.setState({reservationData: reservationData});
+          var data1 = this.state.reservationData;
           console.log(data1);
-          if(data1.length > 0)
-          {
-            this.setState({reservationFormVisible:false});
-            this.showModal();
-          }
-          else{
-            modifyMembership.updateMembership(member, 1, true, false,rentDateTime ,rentLength, rentEndDateTime, rentDateTime) 
-            .then(response => {
-              console.log(response);
-
-              this.setState({reservationFormVisible:false});        
-              Swal.fire('Success', 'Reservation successful!', 'success');
-          });
-          }
-
         });
         
         
     };
     
-    
+    // ** Part - 5 =====================================================================================
+
     return (
     <div>
         <div>
-            <UserHeader selectedKey={['1']} />
+            <UserHeader selectedKey={['3']} />
         </div>
         <br/><br/>
-        <h2 style={{ textAlign: 'center', color: '#000077', font: 'bold', }}>
-            Admin - Terminate Memberships
+        <h2 style={{ textAlign: 'center', color: '#000077', }}>
+            Return and Cancel Reservations
         </h2>
         <br/><br/>
-        <Table pagination= { {pageSizeOptions: ['10', '20'], showSizeChanger: true}} columns={columns} dataSource={this.state.membershipData} />
+        <Table pagination= { {pageSizeOptions: ['10', '20'], showSizeChanger: true}} columns={columns} dataSource={this.state.reservationData} />
         
         <Modal
           title="Basic Modal"
@@ -295,16 +237,8 @@ class AdminMembership extends React.Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <p>Sorry, the vehicle you are looking for is currently not available</p>
-          <p>Do you want to check for same vehicle type at other locations?</p>
+          <p>Sorry, no reservations available</p>
         </Modal>
-        
-        <ReservationForm
-            visible={this.state.reservationFormVisible}
-            onCancel={() => this.setState({reservationFormVisible:false})}
-            onCreate={onCreate}
-            fields={fields}
-        />
         <div>
             <Footer />
         </div>
@@ -314,4 +248,4 @@ class AdminMembership extends React.Component {
   }
 }
 
-export default AdminMembership;
+export default ReturnCancel;

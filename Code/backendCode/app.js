@@ -21,8 +21,8 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 app.use(bodyParser.json({ type: 'application/json' }));
 
-app.listen(4000, () => {
-    console.log("Server running on port 4000");
+app.listen(4002, () => {
+    console.log("Server running on port 4002");
 })
 
 app.on('error', err => {
@@ -303,7 +303,7 @@ app.get('/api/allMemberships', function (req, res) {
 })
 
 app.post('/api/modifyMembership', function(req, res){
-  console.log("Manasa ==> Hit this modifyMembership. ");
+  // console.log("Debug ==> Hit this modifyMembership. ");
   console.log("\n \n " + JSON.stringify(req.body))
   // console.log(params.stringify());
   var time = new Date().toDateString() + " " + new Date().toLocaleTimeString();
@@ -314,6 +314,62 @@ app.post('/api/modifyMembership', function(req, res){
       "membershipId": req.body.membershipId      
     },
     UpdateExpression: "SET endDate = :time",
+    ExpressionAttributeValues:{
+        ":time": time
+    },
+    ReturnValues:"UPDATED_NEW"
+  };
+  console.log(params);
+  dynamoDb.update(params, function(err, data) {
+    if (err) {
+        console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+    } else {
+        console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+        res.json(data);
+    }
+  });
+})
+
+/** Below added by Manasa on 04/15/2020 for Admin to modify memberships - End */
+
+/** Below added by Manasa on 04/15/2020 for Admin to modify memberships - Start */
+
+app.get('/api/allReservations', function (req, res) {
+  const userId = req.params.userId;
+  console.log(" \n userId is:  " + userId);
+  const params = { 
+    TableName: "VehicleTransaction",
+    Key: 
+    {
+      "userId": "5",      
+    },
+  }    
+  dynamoDb.scan(params, (error, result) => {
+
+    if (error) {  
+      console.log(error);  
+      return res.status(400).json({ error: 'Could not get reservation' });  
+    }
+
+    if (result) { 
+      return res.json(result.Items);
+    } 
+    else { return res.status(404).json({ error: "Reservation not found" }); }  
+  });
+
+})
+
+app.post('/api/returnCancel', function(req, res){
+  console.log("Debug ==> Hit this returnCancel. ");
+  console.log("\n \n " + JSON.stringify(req.body))
+  var time = new Date().toDateString() + " " + new Date().toLocaleTimeString();
+  var params = {
+    TableName: "VehicleTransaction",
+    Key: 
+    {
+      "vehicleTransactionId": req.body.vehicleTransactionId      
+    },
+    UpdateExpression: "SET rentEndDateTime = :time",
     ExpressionAttributeValues:{
         ":time": time
     },
