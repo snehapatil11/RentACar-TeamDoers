@@ -36,8 +36,30 @@ class ReturnCancel extends React.Component {
     }
 
     modify(record, e) {
-      e.preventDefault()
+// Calculate the fee
+// 
 
+    var rStDate= record.rentedDateTime;
+    var rEndDate=new Date();
+    var rStDate_format = moment(rStDate).toDate();
+    var rEndDate_format = moment(rEndDate).toDate();
+    //alert("The give dates are: " + rStDate + " "+rEndDate);    
+    var Difference_In_Time = rEndDate_format - rStDate_format; 
+    var Difference_In_Hours = Math.ceil(Difference_In_Time / (1000 * 3600)); 
+    /** Dynamic pricing */
+    var totalHours = Difference_In_Hours;  
+    var sum=0;
+    var multiplier=0.99;
+    var price=100;
+    while(Difference_In_Hours>0 && price>0){
+      sum += price;
+      Difference_In_Hours-= 10;
+      price = multiplier*price;
+    }
+    sum = Math.ceil(sum);
+    alert("It was " + totalHours + " hours you spent. \nYour bill is: " + sum + "$");
+    // alert(rEndDate_format + " " + rStDate_format + ":" + (rEndDate_format - rStDate_format));
+    e.preventDefault()
       const url=`${apiConfig.endpointURL}/returnCancel`;
       axios.post(url, {vehicleTransactionId: record.vehicleTransactionId})
           .then((res) => {
@@ -205,9 +227,12 @@ class ReturnCancel extends React.Component {
         /* Hard coding user Id - Start */
         var userId=5;
         /* Hard coding user Id - End */
+        // var startDate = moment(values.startDate).format('YYYY-MM-DD HH-mm');
+        // var endDate = moment(values.endDate).format('YYYY-MM-DD HH-mm');
+        
         var startDate = moment(values.startDate).format('YYYY-MM-DD HH-mm');
         var endDate = moment(values.endDate).format('YYYY-MM-DD HH-mm');
-        
+
         returnCancel.getAllReservations(userId).then(reservationData =>{           
           this.setState({reservationData: reservationData});
           var data1 = this.state.reservationData;

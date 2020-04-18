@@ -362,7 +362,12 @@ app.get('/api/allReservations', function (req, res) {
 app.post('/api/returnCancel', function(req, res){
   console.log("Debug ==> Hit this returnCancel. ");
   console.log("\n \n " + JSON.stringify(req.body))
-  var time = new Date().toDateString() + " " + new Date().toLocaleTimeString();
+  // var time = new Date().format('yyyy-mm-dd hh-mm').toDateString();
+  var d = new Date();
+  d = new Date(d.getTime() - 3000000);
+  var time = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
+  
+
   var params = {
     TableName: "VehicleTransaction",
     Key: 
