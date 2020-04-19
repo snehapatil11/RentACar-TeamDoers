@@ -34,12 +34,6 @@ class Headers extends Component{
       }) 
   }
 
- clickedHome = () => {
-  this.setState({
-    redirectPage: <Redirect to = {{pathname:'/user/'}} />
-  }) 
-}
-
 clickedAdmin = () => {
   this.setState({
     redirectPage: <Redirect to = {{pathname:'/admin/'}} />
@@ -69,7 +63,6 @@ return (
       <Menu.Item key="1" onClick={this.clickedWelcome}>Welcome</Menu.Item>
       <Menu.Item key="2" onClick={this.clickedJoinUs}>Join Us</Menu.Item>
       <Menu.Item key="3" onClick={this.clickedSignin}>Sign in</Menu.Item>
-      <Menu.Item key="4" onClick={this.clickedHome}>Home</Menu.Item>
       {/* <Menu.Item key="5" onClick={this.clickedAdmin}>Admin</Menu.Item> */}
       <Menu.Item key="6" onClick={this.clickedMembership}>Admin - Membership</Menu.Item>
 

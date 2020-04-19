@@ -229,14 +229,29 @@ class User extends React.Component {
 
         var rentEndDateTime = moment(values.rentalDate).add(rentLength, 'hours').format('YYYY-MM-DD HH-mm');
         
-        
+        //console.log(moment(rentDateTime,'YYYY-MM-DD HH-mm'));
 
         vehicleServices.getVehicleTransactions(vehicle, rentDateTime).then(vehicleTransactionData =>{           
           this.setState({vehicleTransactionData: vehicleTransactionData});
           var data1 = this.state.vehicleTransactionData.filter(data => {
             
             //return data.vehicleId === vehicle && data.rentedTime < rentTime && data.rentEndTime > rentTime && data.isReserved === true;
-            return (moment(data.rentedDateTime).isSameOrBefore(rentDateTime) || moment(data.rentEndDateTime).isSameOrAfter(rentEndDateTime)) && data.isReserved === true;
+            //return (moment(data.rentedDateTime).isSameOrBefore(rentDateTime) && moment(data.rentEndDateTime).isSameOrAfter(rentEndDateTime)) && data.isReserved === true;
+            //return (moment(rentDateTime).isBetween(moment(data.rentedDateTime),moment(data.rentEndDateTime)) || moment(rentEndDateTime).isBetween(moment(data.rentedDateTime),moment(data.rentEndDateTime)) || moment(data.rentedDateTime).isBetween(moment(rentDateTime),moment(rentEndDateTime))) && data.isReserved === true;
+            //var left1 = moment(data.rentedDateTime).isSameOrAfter(moment(rentDateTime)) && moment(data.rentedDateTime).isSameOrAfter(rentEndDateTime);
+            //var left2 = moment(data.rentEndDateTime).isSameOrAfter(moment(rentDateTime)) && moment(data.rentEndDateTime).isSameOrAfter(rentEndDateTime);
+
+            var a = moment(rentDateTime,'YYYY-MM-DD HH-mm').isBetween(moment(data.rentedDateTime,'YYYY-MM-DD HH-mm'),moment(data.rentEndDateTime,'YYYY-MM-DD HH-mm'));
+            var b = moment(rentEndDateTime,'YYYY-MM-DD HH-mm').isBetween(moment(data.rentedDateTime,'YYYY-MM-DD HH-mm'),moment(data.rentEndDateTime,'YYYY-MM-DD HH-mm'));
+            var c = moment(data.rentedDateTime,'YYYY-MM-DD HH-mm').isBetween(moment(rentDateTime,'YYYY-MM-DD HH-mm'),moment(rentEndDateTime,'YYYY-MM-DD HH-mm'));
+            // console.log(moment(rentDateTime,'YYYY-MM-DD HH-mm'));
+            //  console.log(moment(rentEndDateTime,'YYYY-MM-DD HH-mm'));
+            //  console.log(moment(data.rentedDateTime,'YYYY-MM-DD HH-mm'));
+            //  console.log(moment(data.rentEndDateTime,'YYYY-MM-DD HH-mm'))
+            console.log(a);
+            console.log(b);
+            console.log(c);
+            return (a || b || c) && data.isReserved === true;
           });
           console.log(data1);
 
@@ -273,13 +288,13 @@ class User extends React.Component {
         <Table pagination= { {pageSizeOptions: ['10', '20'], showSizeChanger: true}} columns={columns} dataSource={this.state.vehiclesData} />
         
         <Modal
-          title="Basic Modal"
+          title="Vehicle Reservation"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
           <p>Sorry, the vehicle you are looking for is currently not available</p>
-          <p>Do you want to check for same vehicle type at other locations?</p>
+          <p>Do you want to check for same vehicle type at other locations and time?</p>
         </Modal>
         
         <ReservationForm
