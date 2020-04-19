@@ -27,6 +27,7 @@ class UserHeader extends Component{
     this.setState({
       redirectPage: <Redirect to = {{pathname:'/welcome/'}} />
     }) 
+    localStorage.clear();
   }
   // Added by Manasa for user Cancel and Return - start
   clickedReturn = () => {

@@ -4,6 +4,7 @@ import Headers from './header';
 import { Layout, Row, Col } from 'antd';
 import "antd/dist/antd.css";
 import "../css/Admin.css"
+import { Redirect } from 'react-router';
 
 
 const { Content } = Layout;
@@ -21,10 +22,13 @@ class AdminForm extends Component {
 
 
     render() {
-
+        let redirectPage = null;
+        if (!localStorage.getItem("user_id") ||  localStorage.getItem("userType")!=='admin' ) {
+            redirectPage = <Redirect to="/welcome/" />
+        }
         return (
             <div>
-                {this.state.redirect}
+                {redirectPage}
                 <div>
                     <Row >
                         <Layout className="layout">
