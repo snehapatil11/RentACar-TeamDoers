@@ -9,6 +9,7 @@ import UserHeader from './userHeader';
 import Footer from './footer';
 import { vehicleServices } from "../services/vehicleServices";
 import ReservationForm from './reservationForm';
+import { Redirect } from 'react-router';
 
 
 class User extends React.Component {
@@ -259,10 +260,15 @@ class User extends React.Component {
         
         
     };
-    
+    let redirectPage = null;
+    if (!localStorage.getItem("user_id") ||  localStorage.getItem("userType")!=='user' ) {
+        redirectPage = <Redirect to="/welcome/" />
+        
+    }
     
     return (
     <div>
+      {redirectPage}
         <div>
             <UserHeader selectedKey={['1']} />
         </div>

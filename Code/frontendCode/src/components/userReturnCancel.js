@@ -10,6 +10,7 @@ import Footer from './footer';
 import { returnCancel } from "../services/returnCancel";
 import ReservationForm from './reservationForm';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 export const apiConfig = {
     endpointURL: "http://localhost:4002/api"
@@ -244,9 +245,16 @@ class ReturnCancel extends React.Component {
     };
     
     // ** Part - 5 =====================================================================================
-
+    let redirectPage = null;
+    if (!localStorage.getItem("user_id") ||  localStorage.getItem("userType")!=='user' ) {
+        redirectPage = <Redirect to="/welcome/" />
+    }
+    
+    
     return (
     <div>
+            {redirectPage}
+
         <div>
             <UserHeader selectedKey={['3']} />
         </div>

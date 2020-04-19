@@ -51,6 +51,8 @@ class Login extends Component {
                     await localStorage.setItem("userType", values.userType);
                     await localStorage.setItem("email_id", values.emailid);
                     await localStorage.setItem("name", res.data[0].name);
+                    await localStorage.setItem("isMember", res.data[0].isMember);
+
 
                     let userTypeobj;
 
