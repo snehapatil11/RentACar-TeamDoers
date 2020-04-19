@@ -14,7 +14,7 @@ class UserHeader extends Component{
     
    clickedProfile = () => {
     this.setState({
-      redirectPage: <Redirect to = {{pathname:'/user/profile'}} />
+      redirectPage: <Redirect to = {{pathname:'/profile'}} />
     }) 
   }
   clickedHome = () => {

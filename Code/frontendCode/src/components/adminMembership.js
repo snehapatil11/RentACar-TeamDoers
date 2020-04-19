@@ -256,20 +256,7 @@ class AdminMembership extends React.Component {
           this.setState({membershipData: membershipData});
           var data1 = this.state.membershipData;
           console.log(data1);
-          if(data1.length > 0)
-          {
-            this.setState({reservationFormVisible:false});
-            this.showModal();
-          }
-          else{
-            modifyMembership.updateMembership(member, 1, true, false,rentDateTime ,rentLength, rentEndDateTime, rentDateTime) 
-            .then(response => {
-              console.log(response);
-
-              this.setState({reservationFormVisible:false});        
-              Swal.fire('Success', 'Reservation successful!', 'success');
-          });
-          }
+          
 
         });
         

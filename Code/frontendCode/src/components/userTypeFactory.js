@@ -6,7 +6,7 @@ class UserTypeFactory {
         return '/admin/profile/';
      }
      else{
-        return '/user/profile/';
+        return '/profile/';
      }
     
     }

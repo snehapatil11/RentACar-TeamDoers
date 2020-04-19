@@ -213,7 +213,7 @@ class UserProfile extends Component {
                 </div>
                 {this.state.ready && <div>
                     <div>
-                        <UserHeader selectedKey={['1']} />
+                        <UserHeader selectedKey={['2']} />
                         <br></br>
                         <br></br>
                         <div style={{paddingTop:'2%', textAlign:'center'}}>
