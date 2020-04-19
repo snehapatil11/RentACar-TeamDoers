@@ -17,6 +17,7 @@ class User extends React.Component {
       searchText: '',
       searchedColumn: '',
       visible: false,
+      visibleMembership:false,
       filterRentalLocation:'',
       vehicleId:'',
       userId:'',
@@ -37,13 +38,20 @@ class User extends React.Component {
     
     reserve(record, e){
         e.preventDefault();
+        var ismember = localStorage.getItem("isMember");
+        console.log(ismember);
         this.setState({
           filterVehicleType : record.vehicleType,
           filterRentalLocation: record.rentalLocationName,
-          vehicleId: record.vehicleId,
-          reservationFormVisible:true
+          vehicleId: record.vehicleId
 
         });
+        if(ismember === "1"){
+          this.setState({reservationFormVisible:true});
+        }
+        else{
+          this.setState({visibleMembership:true});
+        }
     }
 
     showModal = () => {
@@ -65,6 +73,12 @@ class User extends React.Component {
       console.log(e);
       this.setState({
         visible: false,
+      });
+    };
+    handleCancelMem = e => {
+      console.log(e);
+      this.setState({
+        visibleMembership: false,
       });
     };
     
@@ -301,6 +315,14 @@ class User extends React.Component {
         >
           <p>Sorry, the vehicle you are looking for is currently not available</p>
           <p>Do you want to check for same vehicle type at other locations and time?</p>
+        </Modal>
+        <Modal
+          title="Vehicle Reservation"
+          visible={this.state.visibleMembership}
+          onOk={this.handleCancelMem}
+          onCancel={this.handleCancelMem}
+        >
+          <p>Please Extend your membership to avail the service.</p>
         </Modal>
         
         <ReservationForm

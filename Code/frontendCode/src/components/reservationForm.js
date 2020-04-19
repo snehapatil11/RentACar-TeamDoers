@@ -1,9 +1,14 @@
 import React ,{useState} from "react";
 import { Modal, Form, Input, DatePicker,InputNumber } from "antd";
+import moment from 'moment';
 
 
 const ReservationForm = ({ visible, onCancel, onCreate, fields,}) => {
     const [form] = Form.useForm();
+    function disabledDate(current) {
+      // Can not select days before today and today
+      return current < moment().startOf('day');
+    }
     
   return (
     <Modal
@@ -43,7 +48,7 @@ const ReservationForm = ({ visible, onCancel, onCreate, fields,}) => {
           <Input />
         </Form.Item>
         <Form.Item name="rentalDate" label="Pickup Date" style={{ marginBottom: "0px" }}>
-          <DatePicker showTime={{ format: 'HH:mm' }} format="YYYY-MM-DD HH:mm"/>
+          <DatePicker disabledDate={disabledDate} showTime={{ format: 'HH:mm' }} format="YYYY-MM-DD HH:mm"/>
         </Form.Item>
         <Form.Item name="rentalLength" label="Length of Rental By Hour (Max 72hrs)" className="collection-create-form_last-form-item">
           <InputNumber min={1} max={72} defaultValue={1}/>
