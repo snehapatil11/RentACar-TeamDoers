@@ -72,6 +72,7 @@ class UserProfile extends Component {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
+            cancelButtonText:'No',
             confirmButtonText: 'Yes!'
         }).then((result) => {
 
@@ -91,17 +92,17 @@ class UserProfile extends Component {
                 })
                     .then((response) => {
                         console.log(response)
-        
+                        Swal.fire(
+                            'Cancelled successfully!',
+                            'We are sorry to see you go!',
+                            'success'
+                        )
                     })
                     .catch((e) => {
         
                     })
             }
-            Swal.fire(
-                     'Cancelled successfully!',
-                     'We are sorry to see you go!',
-                     'success'
-                 )
+          
             })
             .catch((e)=>{
 
