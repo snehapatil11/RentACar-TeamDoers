@@ -1,0 +1,20 @@
+$ aws dynamodb get-item \
+    --table-name Vehicle \
+    --key '{
+      "vehicleId": {"S": "3"}
+    }' \
+    $LOCAL
+
+  {
+    "Item": {
+        "vehicleId": {
+            "S": "3"
+        },
+        "year": {
+            "N": "2001"
+        },
+        "model": {
+            "S": "Pink color"
+        }
+    }
+  }

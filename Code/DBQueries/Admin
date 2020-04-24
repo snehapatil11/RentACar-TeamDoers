@@ -6,7 +6,11 @@ Commands:
 
 Queries:
 
-1) To add a new vehicle
+1) Table: Vehicle
+
+
+a) Insert: To add a new vehicle
+
 aws dynamodb put-item \
     --table-name Vehicle \
     --item '{
@@ -27,3 +31,30 @@ aws dynamodb put-item \
     $LOCAL
 
 
+b) Delete: To delete an existing vehicle
+
+
+c) Fetch: All records from Vehicle table
+
+aws dynamodb scan --table-name Vehicle
+aws dynamodb scan --table-name Vehicle --region us-east-2
+
+OR
+
+aws dynamodb query --table-name Vehicle --region us-east-2 --key-conditions '{
+  "vehicleId":{
+    "AttributeValueList": [
+      {
+        "S":"3"
+      }
+    ],
+    "ComparisonOperator":"EQ"
+  }
+
+}'
+
+OR
+
+aws dynamodb query --table-name Vehicle --region us-east-2 --key-conditions file://query.json
+
+d) Update: 
