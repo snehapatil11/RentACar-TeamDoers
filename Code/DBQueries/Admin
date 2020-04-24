@@ -31,10 +31,7 @@ aws dynamodb put-item \
     $LOCAL
 
 
-b) Delete: To delete an existing vehicle
-
-
-c) Fetch: All records from Vehicle table
+b) Fetch: All records from Vehicle table
 
 aws dynamodb scan --table-name Vehicle
 aws dynamodb scan --table-name Vehicle --region us-east-2
@@ -57,7 +54,7 @@ OR
 
 aws dynamodb query --table-name Vehicle --region us-east-2 --key-conditions file://query.json
 
-d) Update: 
+c) Update: 
 
 aws dynamodb update-item \
     --table-name Vehicle \
