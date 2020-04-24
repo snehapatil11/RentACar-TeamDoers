@@ -1,0 +1,29 @@
+Commands:
+ 1)  pip install awscli\n
+ 2)  aws configure
+ 3)  aws dynamodb list-tables $LOCAL
+
+
+Queries:
+
+1) To add a new vehicle
+aws dynamodb put-item \
+    --table-name Vehicle \
+    --item '{
+      "vehicleId": {"S": "3"},
+      "condition": {"S": "Good"},
+      "currentMileage": {"N": "81"},
+      "hourlyPrice": {"N": "100"},
+      "lastServiceDate": {"S": "4/12/2020"},
+      "make": {"S": "Honda Accord"},
+      "registrationTag": {"S": "HA_101"},
+      "rentalLocationAddress": {"S": "San Francisco"},
+      "rentalLocationName": {"S": "Auto Mall"},
+      "rentalLocationVehicleCapacity": {"N": "250"},
+      "vehicleType": {"S": "large"},
+      "year": {"N": "2020"}
+
+    }' \
+    $LOCAL
+
+
