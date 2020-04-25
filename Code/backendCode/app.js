@@ -391,9 +391,10 @@ app.post('/user/extendMem/', function(req, res){
         {
           "userId": req.body.userID   
         },
-        UpdateExpression: "SET  memEndDate= :value",
+        UpdateExpression: "SET  memEndDate= :value, isMember:value1",
         ExpressionAttributeValues:{
             ":value": req.body.endDate,
+            ":value1": 1
         },
         ReturnValues:"UPDATED_NEW"
       };

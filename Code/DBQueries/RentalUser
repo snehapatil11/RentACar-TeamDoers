@@ -1,0 +1,74 @@
+Commands:
+ 1)  pip install awscli\n
+ 2)  aws configure
+ 3)  aws dynamodb list-tables $LOCAL
+
+
+Queries:
+
+1) Table: RentalUser
+
+
+a) Insert: To add a new vehicle
+
+aws dynamodb put-item \
+    --table-name RentalUser \
+    --item '{
+      "userId": {"N": "3"},
+      "CCNumber": {"S": "4646122075343224"},
+      "address": {"S": "81 SFO"},
+      "cvv": {"N": "100"},
+      "emailid": {"S": "john@apple.com"},
+      "expiryMonth": {"S": "January"},
+      "expiryYear": {"N": "2030"},
+      "isMember": {"N": "1"},
+      "licenseNum": {"S": "B1255354"}
+
+    }' \
+    $LOCAL
+
+
+b) Fetch: All records from Vehicle table
+
+aws dynamodb scan --table-name RentalUser
+aws dynamodb scan --table-name RentalUser --region us-east-2
+
+OR
+
+aws dynamodb query --table-name RentalUser --region us-east-2 --key-conditions '{
+  "userId":{
+    "AttributeValueList": [
+      {
+        "N":"3"
+      }
+    ],
+    "ComparisonOperator":"EQ"
+  }
+
+}'
+
+OR
+
+aws dynamodb query --table-name RentalUser --region us-east-2 --key-conditions file://query.json
+
+c) Update: 
+
+aws dynamodb update-item \
+    --table-name RentalUser \
+    --key file://key.json \
+    --update-expression "SET isMember = :m, model = :model" \
+    --expression-attribute-values file://expression-attribute-values.json \
+    --return-values ALL_NEW
+
+key.json
+{
+    "userId": {"N": "3"},
+}
+        
+expression-attribute-values.json
+{
+    ":m": {"N":"1"},
+}
+
+
+

@@ -1,0 +1,18 @@
+aws dynamodb update-item \
+    --table-name Vehicle \
+    --key file://key.json \
+    --update-expression "SET hourlyPrice = :h, model = :model" \
+    --expression-attribute-values file://expression-attribute-values.json \
+    --return-values ALL_NEW
+
+
+key.json
+{
+    "vehicleId": {"S": "3"},
+}
+        
+expression-attribute-values.json
+{
+    ":h": {"N":"60"},
+    ":model": {"S":"Purple Car"}
+}
