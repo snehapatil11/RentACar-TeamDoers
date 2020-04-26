@@ -467,6 +467,7 @@ app.post('/api/modifyMembership', function(req, res){
 /** Below added by Manasa on 04/15/2020 for Admin to modify memberships - Start */
 
 app.get('/api/allReservations/:userId', function (req, res) {
+  var isReturnedFlag=false;
   // const userId = req.params.userId;
   const userId = req.params.userId;
   console.log(" \n All reservations ::: userId is:  " + userId);
@@ -479,12 +480,13 @@ app.get('/api/allReservations/:userId', function (req, res) {
   // }    
   const params = { 
     TableName: "VehicleTransaction",
-    FilterExpression: '#userId = :userId',
+    FilterExpression: "#userId = :userId and isReturned = :isReturnedFlag",
     ExpressionAttributeNames: {
         '#userId': 'userId',
     },
     ExpressionAttributeValues: {
         ':userId': userId,
+        ':isReturnedFlag':isReturnedFlag
     },
   }
   dynamoDb.scan(params, (error, result) => {
