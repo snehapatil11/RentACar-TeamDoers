@@ -515,6 +515,8 @@ app.post('/api/returnCancel', function(req, res){
   var commentText = 'No comments';
   // commentText = req.body.comment;
   var isReturnedFlag=true;
+  var commentReturn = req.body.comment;
+  if(commentReturn==null||commentReturn==""){commentReturn="No comments"}
 
   var params = {
     TableName: "VehicleTransaction",

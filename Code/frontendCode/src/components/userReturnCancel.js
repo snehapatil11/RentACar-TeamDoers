@@ -96,6 +96,7 @@ class ReturnCancel extends React.Component {
     // alert(rEndDate_format + " " + rStDate_format + ":" + (rEndDate_format - rStDate_format));
     e.preventDefault()
       const url=`${apiConfig.endpointURL}/returnCancel`;
+      // if(selectedComment==null||selectedComment==""){selectedComment="No comments"}
       axios.post(url, {vehicleTransactionId: record.vehicleTransactionId, comment: selectedComment})
           .then((res) => {
               console.log(res.data)
