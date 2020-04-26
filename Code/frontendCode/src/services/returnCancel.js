@@ -8,13 +8,13 @@ export const apiConfig = {
 
 function getAllReservations() 
 {   var userId = localStorage.getItem("user_id");
-    alert("From returnCancel DAO "+userId);
+    // alert("From returnCancel DAO "+userId);
     var url = new URL(`${apiConfig.endpointURL}/allReservations/`+ userId),
     params = {userId: userId}
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
     return fetch(url)
     .then(response => {
-        alert("Here in ReturnCancel" );
+        // alert("Here in ReturnCancel" );
         return response.json()
     })    
 
