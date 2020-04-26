@@ -511,7 +511,8 @@ app.post('/api/returnCancel', function(req, res){
   var d = new Date();
   d = new Date(d.getTime() - 3000000);
   var time = d.getFullYear().toString()+"-"+((d.getMonth()+1).toString().length==2?(d.getMonth()+1).toString():"0"+(d.getMonth()+1).toString())+"-"+(d.getDate().toString().length==2?d.getDate().toString():"0"+d.getDate().toString())+" "+(d.getHours().toString().length==2?d.getHours().toString():"0"+d.getHours().toString())+":"+((parseInt(d.getMinutes()/5)*5).toString().length==2?(parseInt(d.getMinutes()/5)*5).toString():"0"+(parseInt(d.getMinutes()/5)*5).toString());
-  // var commentText = req.body.comment;
+  var commentText = 'No comments';
+  // commentText = req.body.comment;
   var isReturnedFlag=true;
 
   var params = {
@@ -521,11 +522,13 @@ app.post('/api/returnCancel', function(req, res){
       "vehicleTransactionId": req.body.vehicleTransactionId    
     },
     // UpdateExpression: "SET rentEndDateTime = :time, commentReturn = :commentText",
-    UpdateExpression: "SET rentEndDateTime = :time, isReturned = :isReturnedFlag",
+    // UpdateExpression: "SET rentEndDateTime = :time, isReturned = :isReturnedFlag",
+    UpdateExpression: "SET rentEndDateTime = :time, isReturned = :isReturnedFlag, commentReturn = :commentText",
+
     ExpressionAttributeValues:{
         ":time": time,
-        // ":commentReturn":commentText
-        ":isReturnedFlag":isReturnedFlag
+        ":isReturnedFlag":isReturnedFlag,
+        ":commentText":commentText,
     },
     ReturnValues:"UPDATED_NEW"
   };
