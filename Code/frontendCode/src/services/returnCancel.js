@@ -7,16 +7,18 @@ export const apiConfig = {
 }
 
 function getAllReservations() 
-{   
-    // alert(userId);
-    var url = new URL(`${apiConfig.endpointURL}/allReservations`),
-    params = {userId: "5"}
+{   var userId = localStorage.getItem("user_id");
+    alert("From returnCancel DAO "+userId);
+    var url = new URL(`${apiConfig.endpointURL}/allReservations/`+ userId),
+    params = {userId: userId}
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
     return fetch(url)
     .then(response => {
+        alert("Here in ReturnCancel" );
         return response.json()
     })    
 
         // return fetch(`${apiConfig.endpointURL}/allReservations`, {userId: userId})
 
+        
 }

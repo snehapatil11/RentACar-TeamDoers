@@ -27,6 +27,36 @@ class ReturnCancel extends React.Component {
     componentDidMount(){        
         this.getAllReservations(); 
     }    
+    
+  //   async componentDidMount() {
+
+  //     if(user_id){
+  //     await axios.get(valuesExport.url + 'user/info/' + user_id)
+  //         .then((response) => {
+
+
+  //             if (response.data) {
+  //                 this.setState({
+  //                     userinfo: response.data,
+                      
+  //                     startDate: moment(response.data[0].memStartDate, 'DD/MM/YYYY'),
+  //                     endDate: moment(response.data[0].memEndDate, 'DD/MM/YYYY'),
+  //                     userID: response.data[0].userId,
+  //                     name: response.data[0].name,
+  //                     ready: true
+
+  //                 })
+  //             }
+
+  //         })
+  //         .catch((error) => {
+
+  //             console.log(error);
+  //         })
+
+  //     }
+
+  // }
         
     getAllReservations() {
         returnCancel.getAllReservations().then(reservationData =>{ 
@@ -39,7 +69,7 @@ class ReturnCancel extends React.Component {
     modify(record, e) {
 // Calculate the fee
 // 
-
+    // alert(localStorage.getItem("user_id"));
     var rStDate= record.rentedDateTime;
     var rEndDate=new Date();
     var rStDate_format = moment(rStDate).toDate();
@@ -52,6 +82,7 @@ class ReturnCancel extends React.Component {
     var sum=0;
     var multiplier=0.99;
     var price=100;
+    var comment=record.comment;
     while(Difference_In_Hours>0 && price>0){
       sum += price;
       Difference_In_Hours-= 10;
@@ -62,7 +93,7 @@ class ReturnCancel extends React.Component {
     // alert(rEndDate_format + " " + rStDate_format + ":" + (rEndDate_format - rStDate_format));
     e.preventDefault()
       const url=`${apiConfig.endpointURL}/returnCancel`;
-      axios.post(url, {vehicleTransactionId: record.vehicleTransactionId})
+      axios.post(url, {vehicleTransactionId: record.vehicleTransactionId, comment: record.comment})
           .then((res) => {
               console.log(res.data)
           }).catch((error) => {
@@ -215,6 +246,14 @@ class ReturnCancel extends React.Component {
                   Cancel/Return
               </Button>
             </span>
+          ),
+        },
+        {
+          title: 'Comment',
+          dataIndex: '',
+          key: 'x',
+          render: (text, record) => (
+          <input type="text" name="comment" />
           ),
         },
         
