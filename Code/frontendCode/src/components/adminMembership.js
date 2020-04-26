@@ -56,7 +56,7 @@ class AdminMembership extends React.Component {
       // alert(membershipObject.toString);
       const url=`${apiConfig.endpointURL}/modifyMembership`;
       // alert(" The url is: " + url);// The url is: http://localhost:4002/api/modifyMembership
-      axios.post(url, {membershipId: record.membershipId})
+      axios.post(url, {membershipId: record.userId})
           .then((res) => {
               console.log(res.data)
           }).catch((error) => {
@@ -172,56 +172,56 @@ class AdminMembership extends React.Component {
       ];
       const columns = [
         {
-          title: 'Membership ID',
-          dataIndex: 'membershipId',
-          key: 'membershipId',
-          width: '30%',
-          ...this.getColumnSearchProps('membershipId'),
+          title: 'User ID',
+          dataIndex: 'userId',
+          key: 'userId',
+          // width: '30%',
+          ...this.getColumnSearchProps('userId'),
         },
         {
-          title: 'End Date',
-          dataIndex: 'endDate',
-          key: 'endDate',
+          title: 'Name',
+          dataIndex: 'name',
+          key: 'name',
+          ...this.getColumnSearchProps('name'),
+        },
+        {
+          title: 'Email ID',
+          dataIndex: 'emailid',
+          key: 'emailid',
           width: '20%',
-          ...this.getColumnSearchProps('endDate'),
+          ...this.getColumnSearchProps('emailid'),
         },
         {
-          title: 'Owner',
-          dataIndex: 'owner',
-          key: 'owner',
-          ...this.getColumnSearchProps('owner'),
+          title: 'Expiry Month',
+          dataIndex: 'expiryMonth',
+          key: 'expiryMonth',
+          ...this.getColumnSearchProps('expiryMonth'),
         },
         {
-          title: 'Price',
-          dataIndex: 'price',
-          key: 'price',
-          ...this.getColumnSearchProps('price'),
+          title: 'Expiry Year',
+          dataIndex: 'expiryYear',
+          key: 'expiryYear',
+          ...this.getColumnSearchProps('expiryYear'),
         },
         // 
         {
-            title: 'Remark',
-            dataIndex: 'remark',
-            key: 'remark',
-            ...this.getColumnSearchProps('remark'),
+            title: 'Membership Start Date',
+            dataIndex: 'memStartDate',
+            key: 'memStartDate',
+            ...this.getColumnSearchProps('memStartDate'),
         },
         {
-            title: 'Start Date',
-            dataIndex: 'startDate',
-            key: 'startDate',
-            ...this.getColumnSearchProps('startDate'),
+            title: 'Membership End Date',
+            dataIndex: 'memEndDate',
+            key: 'memEndDate',
+            ...this.getColumnSearchProps('memEndDate'),
         },
-        {
-            title: 'Status',
-            dataIndex: 'status',
-            key: 'status',
-            ...this.getColumnSearchProps('status'),
-        },
-        {
-            title: 'User ID',
-            dataIndex: 'userId',
-            key: 'userId',
-            ...this.getColumnSearchProps('userId'),
-        },
+        // {
+        //     title: 'User ID',
+        //     dataIndex: 'userId',
+        //     key: 'userId',
+        //     ...this.getColumnSearchProps('userId'),
+        // },
 
         // 
         {

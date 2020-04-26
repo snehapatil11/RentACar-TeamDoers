@@ -417,7 +417,12 @@ app.post('/user/extendMem/', function(req, res){
 
 app.get('/api/allMemberships', function (req, res) {
   const params = { 
-    TableName: "Membership"
+    // TableName: "Membership"
+    TableName: "RentalUser",
+    FilterExpression: "isMember = :member",
+    ExpressionAttributeValues:{
+      ":member": 1
+  },
   }    
   dynamoDb.scan(params, (error, result) => {
 
@@ -440,14 +445,18 @@ app.post('/api/modifyMembership', function(req, res){
   // console.log(params.stringify());
   var time = new Date().toDateString() + " " + new Date().toLocaleTimeString();
   var params = {
-    TableName: "Membership",
+    // TableName: "Membership",
+    TableName: "RentalUser",
     Key: 
     {
-      "membershipId": req.body.membershipId      
+      // "membershipId": req.body.membershipId      
+      "userId": req.body.membershipId   
     },
-    UpdateExpression: "SET endDate = :time",
+    // UpdateExpression: "SET endDate = :time, isMember= :value",
+    UpdateExpression: "SET memEndDate = :time, isMember= :value",
     ExpressionAttributeValues:{
-        ":time": time
+        ":time": time,
+        ":value": 0
     },
     ReturnValues:"UPDATED_NEW"
   };

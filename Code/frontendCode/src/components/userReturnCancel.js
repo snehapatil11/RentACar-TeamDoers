@@ -92,7 +92,7 @@ class ReturnCancel extends React.Component {
       price = multiplier*price;
     }
     sum = Math.ceil(sum);
-    alert("It was " + totalHours + " hours you spent. \nYour bill is: " + sum + "$");
+    alert("It was " + Math.abs(totalHours) + " hours you spent. \nYour bill is: " + Math.abs(sum) + "$");
     // alert(rEndDate_format + " " + rStDate_format + ":" + (rEndDate_format - rStDate_format));
     e.preventDefault()
       const url=`${apiConfig.endpointURL}/returnCancel`;
