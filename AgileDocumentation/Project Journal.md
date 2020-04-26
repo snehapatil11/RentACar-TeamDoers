@@ -142,12 +142,13 @@
 
 ### Tasks Completed
 ```
-
+1. React and Node application deployment on AWS EC2.
+2. Handled the UI validationd for Vehicle reservation.
 ```
 
 ### Tasks Planned
 ```
-
+1. Attaching Load balancer wih auto scaling groups to EC2. 
 ```
 
 ## Blockers
