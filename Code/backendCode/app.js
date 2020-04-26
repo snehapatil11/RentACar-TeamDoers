@@ -506,7 +506,8 @@ app.get('/api/allReservations/:userId', function (req, res) {
 
 app.post('/api/returnCancel', function(req, res){
   console.log("Debug ==> Hit this returnCancel. ");
-  console.log("\n \n " + JSON.stringify(req.body))
+  console.log("\n \n " + JSON.stringify(req.body));
+  console.log("\n Return Cancel "+ req.body.comment + "\n");
   // var time = new Date().format('yyyy-mm-dd hh-mm').toDateString();
   var d = new Date();
   d = new Date(d.getTime() - 3000000);
@@ -528,7 +529,7 @@ app.post('/api/returnCancel', function(req, res){
     ExpressionAttributeValues:{
         ":time": time,
         ":isReturnedFlag":isReturnedFlag,
-        ":commentText":commentText,
+        ":commentText":req.body.comment,
     },
     ReturnValues:"UPDATED_NEW"
   };

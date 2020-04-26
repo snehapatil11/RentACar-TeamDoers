@@ -65,8 +65,11 @@ class ReturnCancel extends React.Component {
         });
 
     }
-
+    // selectedComment="No comments";
     modify(record, e) {
+
+    // alert("Here " +document.getElementById("commentReturn").value);
+    var selectedComment=document.getElementById("commentReturn").value;
 // Calculate the fee
 // 
     // alert(localStorage.getItem("user_id"));
@@ -93,7 +96,7 @@ class ReturnCancel extends React.Component {
     // alert(rEndDate_format + " " + rStDate_format + ":" + (rEndDate_format - rStDate_format));
     e.preventDefault()
       const url=`${apiConfig.endpointURL}/returnCancel`;
-      axios.post(url, {vehicleTransactionId: record.vehicleTransactionId, comment: record.comment})
+      axios.post(url, {vehicleTransactionId: record.vehicleTransactionId, comment: selectedComment})
           .then((res) => {
               console.log(res.data)
           }).catch((error) => {
@@ -125,6 +128,15 @@ class ReturnCancel extends React.Component {
         visible: false,
       });
     };
+
+    handleComment(e) {
+      // alert(e.target.value);
+      // selectedComment = e.target.value;
+      // alert(" Appended " + this.selectedComment);
+      this.setState({
+        commentReturn: e.target.value
+      });
+    }
     
     // ** Part - 2 =====================================================================================
     
@@ -252,8 +264,9 @@ class ReturnCancel extends React.Component {
           title: 'Comment',
           dataIndex: '',
           key: 'x',
+          ...this.getColumnSearchProps('commentReturn'),
           render: (text, record) => (
-          <input type="text" name="comment" />
+          <input type="text" name="commentReturn" id="commentReturn" onMouseLeave={e => this.handleComment(e)}/>
           ),
         },
         
@@ -274,7 +287,7 @@ class ReturnCancel extends React.Component {
         var startDate = moment(values.startDate).format('YYYY-MM-DD HH-mm');
         var endDate = moment(values.endDate).format('YYYY-MM-DD HH-mm');
 
-        returnCancel.getAllReservations(userId).then(reservationData =>{           
+        returnCancel.getAllReservations().then(reservationData =>{           
           this.setState({reservationData: reservationData});
           var data1 = this.state.reservationData;
           console.log(data1);
