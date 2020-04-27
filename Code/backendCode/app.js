@@ -383,7 +383,6 @@ app.post('/user/cancelMem/', function(req, res){
 
 })
 
-
 app.post('/user/extendMem/', function(req, res){
   console.log(req.body)
     var params = {
