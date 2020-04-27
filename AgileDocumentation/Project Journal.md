@@ -163,7 +163,12 @@
 
 ### Tasks Planned
 ```
-
+1. Pop up with the UI.
+2. When terminating membership, format of end date yyyy/mm/dd.
+3. When admin logs in, just one tab. Remove others
+4. Admin logs in, his landing page
+5. Reserve vehicle even after terminating membership
+6. Change color of headings 
 ```
 
 ## Blockers
