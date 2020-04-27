@@ -47,6 +47,7 @@ class Login extends Component {
                 }
                 else {
 
+                    
                     await localStorage.setItem("user_id", res.data[0].userId);
                     await localStorage.setItem("userType", values.userType);
                     await localStorage.setItem("email_id", values.emailid);
@@ -57,7 +58,7 @@ class Login extends Component {
                     let userTypeobj;
 
 
-                    userTypeobj = UserTypeFactory.userTypeURL(res.userType);
+                    userTypeobj = UserTypeFactory.userTypeURL(values.userType);
                     this.setState({
                         redirectPage: <Redirect to={{ pathname: userTypeobj }} />
                     })

@@ -168,6 +168,7 @@ class UserProfile extends Component {
             if (result.value) {
 
                 let endValue = moment(this.state.endDate).add(this.state.months, 'months').format('DD/MM/YYYY');
+                console.log(endValue)
                 this.setState({
                     endDate: moment(this.state.endDate).add(this.state.months, 'months'),
                    
@@ -255,7 +256,7 @@ class UserProfile extends Component {
                                         </Select>
                                         </Col>
                                         <Col span={6}>
-                                        <p>Price: {this.state.price}</p>
+                                        <p>Price($): {this.state.price}</p>
                                         </Col>
                                         <Col span={6}>
                                         <Button type="primary" onClick={this.extendMembership} disabled={!this.state.price}>

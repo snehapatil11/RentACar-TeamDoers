@@ -385,13 +385,14 @@ app.post('/user/cancelMem/', function(req, res){
 
 
 app.post('/user/extendMem/', function(req, res){
+  console.log(req.body)
     var params = {
         TableName: "RentalUser",
         Key: 
         {
           "userId": req.body.userID   
         },
-        UpdateExpression: "SET  memEndDate= :value, isMember:value1",
+        UpdateExpression: "SET  memEndDate= :value, isMember=:value1",
         ExpressionAttributeValues:{
             ":value": req.body.endDate,
             ":value1": 1
