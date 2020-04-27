@@ -301,9 +301,11 @@ class User extends React.Component {
         <div>
             <UserHeader selectedKey={['1']} />
         </div>
-        <div style={{ textAlign: 'center', marginBottom: "20px", }}>
-            <h1>Vehicle and Vehicle Locations</h1>
-        </div>
+        <br/><br/>
+        <h2 style={{ textAlign: 'center' }}>
+            Vehicle and Vehicle Locations
+        </h2>
+        <br/>
         
         <Table pagination= { {pageSizeOptions: ['10', '20'], showSizeChanger: true}} columns={columns} dataSource={this.state.vehiclesData} />
         
