@@ -17,6 +17,7 @@ class WelcomePage extends Component {
     }
 
     componentDidMount() {
+        localStorage.clear();
     }
 
 

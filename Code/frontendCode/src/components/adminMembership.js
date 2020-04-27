@@ -265,7 +265,7 @@ class AdminMembership extends React.Component {
     };
     
     let redirectPage = null;
-    if (!localStorage.getItem("user_id") ||  localStorage.getItem("userType")!=='admin' ) {
+    if ( localStorage.getItem("userType")!=='admin' || !localStorage.getItem("user_id")  ) {
         redirectPage = <Redirect to="/welcome/" />
     }
     
