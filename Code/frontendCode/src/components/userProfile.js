@@ -91,7 +91,9 @@ class UserProfile extends Component {
         
                 })
                     .then((response) => {
-                        console.log(response)
+                      //  console.log(response)
+                        localStorage.setItem("isMember", 0);
+
                         Swal.fire(
                             'Cancelled successfully!',
                             'We are sorry to see you go!',
@@ -184,7 +186,8 @@ class UserProfile extends Component {
                     })
                     .then((response)=>{
                         console.log(response)
-        
+                         localStorage.setItem("isMember", 1);
+
                     })
                     .catch((e)=>{
         
