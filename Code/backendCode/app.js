@@ -2,6 +2,8 @@ var AWS = require('aws-sdk')
 var express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+var bcrypt = require('bcrypt');
+
 require('dotenv').config();
 var app = express();
 
@@ -224,17 +226,23 @@ app.delete('/deletefiledata/:fileId',function(req, res){
 
 
 
-app.post('/user/add/', function(req, res){
+app.post('/user/add/', async function(req, res){
     const params = {  
       TableName: "RentalUser",
       Item: req.body
     }
     console.log(params);
+    const salt = await bcrypt.genSalt(10);
+
+    const encryptpassword = await bcrypt.hash(req.body.password, salt);
+    params.Item.password = encryptpassword;
+
+    console.log(params)
     dynamoDb.put(params, (error, result) =>{
       
       if(error){
-        console.log(error);
-        console.log(params);
+    //    console.log(error);
+      //  console.log(params);
         return res.status(400).json({ error: 'Could not insert user' });
       }
       if(result){
@@ -248,7 +256,7 @@ app.post('/user/add/', function(req, res){
 
 })
 
-app.get('/user/info/:userId', function(req, res){
+app.get('/user/info/:userId',  function(req, res){
     const userId = Number(req.params.userId);
   console.log(userId);
   const params = { 
@@ -294,15 +302,18 @@ app.post('/user/login/', function(req, res){
           ':emailid': emailid,
       },
     }    
-    dynamoDb.scan(params, (error, result) => {
+    dynamoDb.scan(params, async (error, result) => {
   
       if (error) {  
         console.log(error);  
         return res.status(400).json({ error: 'Could not get user' });  
       }
-  
+  console.log(req.body.password, result.Items.password)
       if (result.Items.length) { 
-        if(result.Items[0].password === req.body.password){
+      //  if(result.Items[0].password === req.body.password){
+        const isMatchPassword = await bcrypt.compare(req.body.password, result.Items[0].password);
+
+        if(isMatchPassword){
           return res.json(result.Items);
         }
         else{
@@ -330,7 +341,7 @@ app.post('/user/login/', function(req, res){
     }    
 
     console.log(params)
-    dynamoDb.scan(params, (error, result) => {
+    dynamoDb.scan(params, async(error, result) => {
   
       if (error) {  
         console.log(error);  
@@ -338,7 +349,11 @@ app.post('/user/login/', function(req, res){
       }
   
       if (result.Items.length) { 
-        if(result.Items[0].password === req.body.password){
+
+        const isMatchPassword = await bcrypt.compare(req.body.password, result.Items[0].password);
+        if(isMatchPassword){
+
+       // if(result.Items[0].password === req.body.password){
           return res.json(result.Items);
         }
         else{
