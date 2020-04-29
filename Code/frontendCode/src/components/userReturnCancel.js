@@ -312,7 +312,7 @@ class ReturnCancel extends React.Component {
             <UserHeader selectedKey={['3']} />
         </div>
         <br/><br/>
-        <h2 style={{ textAlign: 'center', color: '#000077', }}>
+        <h2 style={{ textAlign: 'center' }}>
             Return and Cancel Reservations
         </h2>
         <br/><br/>

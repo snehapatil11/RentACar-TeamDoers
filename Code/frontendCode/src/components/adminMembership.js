@@ -277,7 +277,7 @@ class AdminMembership extends React.Component {
             <UserHeader selectedKey={['1']} />
         </div>
         <br/><br/>
-        <h2 style={{ textAlign: 'center', color: '#000077', font: 'bold', }}>
+        <h2 style={{ textAlign: 'center', font: 'bold', }}>
             Admin - Terminate Memberships
         </h2>
         <br/><br/>
