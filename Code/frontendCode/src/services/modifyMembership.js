@@ -1,12 +1,12 @@
 // const uuidv4 = require('uuid/v4');
-
+import valuesExport from '../config/config';
 export const modifyMembership  = {
     getAllMemberships,
     // postMembership
 }
 
 export const apiConfig = {
-    endpointURL: "http://localhost:4002/api"
+    endpointURL: valuesExport.endpointURL
 }
 
 function getAllMemberships() 
