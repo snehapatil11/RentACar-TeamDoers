@@ -1,3 +1,4 @@
+import valuesExport from '../config/config';
 const uuidv4 = require('uuid/v4');
 
 export const vehicleServices  = {
@@ -7,7 +8,7 @@ export const vehicleServices  = {
 }
 
 export const apiConfig = {
-    endpointURL: "http://localhost:4002/api"
+    endpointURL: valuesExport.endpointURL
 }
 
 function getVehiclesData(email) 

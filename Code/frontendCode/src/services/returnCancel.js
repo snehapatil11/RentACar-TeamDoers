@@ -1,9 +1,10 @@
+import valuesExport from '../config/config';
 export const returnCancel  = {
     getAllReservations,
 }
 
 export const apiConfig = {
-    endpointURL: "http://localhost:4002/api"
+    endpointURL: valuesExport.endpointURL
 }
 
 function getAllReservations(commentReturn) 
