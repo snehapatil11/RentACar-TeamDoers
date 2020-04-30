@@ -29,7 +29,7 @@ class Login extends Component {
     handleSubmit = values => {
         console.log(values)
 
-        axios.post(valuesExport.url + 'api/user/login/', JSON.stringify(values), {
+        axios.post(valuesExport.endpointURL + '/user/login/', JSON.stringify(values), {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
