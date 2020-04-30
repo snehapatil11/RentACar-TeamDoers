@@ -117,7 +117,7 @@ class RegistrationForm extends React.Component {
 
         }
 
-        axios.post(valuesExport.url + 'user/add/', JSON.stringify(insertUser), {
+        axios.post(valuesExport.url + 'api/user/add/', JSON.stringify(insertUser), {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',

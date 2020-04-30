@@ -226,7 +226,7 @@ app.delete('/deletefiledata/:fileId',function(req, res){
 
 
 
-app.post('/user/add/', async function(req, res){
+app.post('/api/user/add/', async function(req, res){
     const params = {  
       TableName: "RentalUser",
       Item: req.body
@@ -256,7 +256,7 @@ app.post('/user/add/', async function(req, res){
 
 })
 
-app.get('/user/info/:userId',  function(req, res){
+app.get('/api/user/info/:userId',  function(req, res){
     const userId = Number(req.params.userId);
   console.log(userId);
   const params = { 
@@ -288,7 +288,7 @@ app.get('/user/info/:userId',  function(req, res){
 
 
 
-app.post('/user/login/', function(req, res){
+app.post('/api/user/login/', function(req, res){
 
   let emailid = req.body.emailid;
   if(req.body.userType === "admin"){
@@ -371,7 +371,7 @@ app.post('/user/login/', function(req, res){
 })
 
 
-app.post('/user/cancelMem/', function(req, res){
+app.post('/api/user/cancelMem/', function(req, res){
    
     var params = {
         TableName: "RentalUser",
@@ -398,7 +398,7 @@ app.post('/user/cancelMem/', function(req, res){
 
 })
 
-app.post('/user/extendMem/', function(req, res){
+app.post('/api/user/extendMem/', function(req, res){
     var params = {
         TableName: "RentalUser",
         Key: 

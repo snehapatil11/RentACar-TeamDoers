@@ -38,7 +38,7 @@ class UserProfile extends Component {
     async componentDidMount() {
 
         if(user_id){
-        await axios.get(valuesExport.url + 'user/info/' + user_id)
+        await axios.get(valuesExport.url + 'api/user/info/' + user_id)
             .then((response) => {
 
 
@@ -83,7 +83,7 @@ class UserProfile extends Component {
                    
                 })
 
-                axios.post(valuesExport.url + 'user/cancelMem/', JSON.stringify({ userID: this.state.userID, endDate:endValue }), {
+                axios.post(valuesExport.url + 'api/user/cancelMem/', JSON.stringify({ userID: this.state.userID, endDate:endValue }), {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
