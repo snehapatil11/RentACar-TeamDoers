@@ -152,7 +152,7 @@ class Login extends Component {
                             >
                                 <Option value="user">User</Option>
                                 <Option value="admin">Admin</Option>
-                                <Option value="other">other</Option>
+                                {/* <Option value="other">other</Option> */}
                             </Select>
                         </Form.Item>
 
