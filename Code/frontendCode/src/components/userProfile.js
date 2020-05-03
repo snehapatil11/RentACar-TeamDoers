@@ -166,18 +166,17 @@ class UserProfile extends Component {
             confirmButtonText: 'Yes!',
             
         }).then((result) => {
-
+            console.log(result.value)
             if (result.value) {
 
                 let endValue = moment(this.state.endDate).add(this.state.months, 'months').format('DD/MM/YYYY');
-                console.log(endValue)
                 this.setState({
                     endDate: moment(this.state.endDate).add(this.state.months, 'months'),
                    
                 })
 
                 var extendValues = { userID: this.state.userID, endDate: endValue }
-                axios.post(valuesExport.endpointURL + '/extendMem/', JSON.stringify(extendValues), {
+                axios.post(valuesExport.endpointURL + '/user/extendMem/', JSON.stringify(extendValues), {
                     headers: {
                       'Accept': 'application/json',
                       'Content-Type': 'application/json',
