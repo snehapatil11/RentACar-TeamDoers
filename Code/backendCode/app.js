@@ -406,7 +406,7 @@ app.post('/api/user/extendMem/', function(req, res){
         },
         ReturnValues:"UPDATED_NEW"
       };
-      console.log(params);
+      console.log("hello values"+params);
       dynamoDb.update(params, function(err, data) {
         if (err) {
             console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
