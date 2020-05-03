@@ -5,7 +5,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import UserHeader from './userHeader';
+import AdminHeader from './adminHeader';
 import Footer from './footer';
 import { modifyMembership } from "../services/modifyMembership";
 import ReservationForm from './reservationForm';
@@ -274,7 +274,7 @@ class AdminMembership extends React.Component {
     <div>
       {redirectPage}
         <div>
-            <UserHeader selectedKey={['1']} />
+            <AdminHeader selectedKey={['1']} />
         </div>
         <br/><br/>
         <h2 style={{ textAlign: 'center', font: 'bold', }}>

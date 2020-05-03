@@ -543,7 +543,8 @@ app.post('/api/returnCancel', function(req, res){
     },
     // UpdateExpression: "SET rentEndDateTime = :time, commentReturn = :commentText",
     // UpdateExpression: "SET rentEndDateTime = :time, isReturned = :isReturnedFlag",
-    UpdateExpression: "SET rentEndDateTime = :time, isReturned = :isReturnedFlag, commentReturn = :commentText",
+    // UpdateExpression: "SET rentEndDateTime = :time, isReturned = :isReturnedFlag, commentReturn = :commentText",
+    UpdateExpression: "SET returnDateTime = :time, isReturned = :isReturnedFlag, commentReturn = :commentText",
 
     ExpressionAttributeValues:{
         ":time": time,
