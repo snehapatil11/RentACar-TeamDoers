@@ -24,7 +24,7 @@ let user_id = localStorage.getItem('user_id');
 class ReturnCancel extends React.Component {
   constructor() {
     super();
-    this.state = {
+    this.state ={
       visible: false,
       creditCard: [],
       startDate: '',
@@ -38,7 +38,7 @@ class ReturnCancel extends React.Component {
       redirectPage: '',
       stateCC:false,
       hoursGtZero:false,
-    },
+    };
     user_id = localStorage.getItem('user_id');
   }
 
@@ -142,17 +142,6 @@ class ReturnCancel extends React.Component {
     })
   }
 
-  paymentModal = () => {
-    this.selectedRecord = record;
-    this.hours = this.calculateFee(record);
-    this.billSum = this.calculateFeeByHours(this.hours);
-    // alert(this.billSum);
-    this.setState({
-      visible: true,
-
-    })
-    // this.modify(record, e);
-  }
 
   handleOk = e => {
     console.log(e);
