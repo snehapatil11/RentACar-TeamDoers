@@ -307,7 +307,7 @@ class User extends React.Component {
         </h2>
         <br/>
         
-        <Table pagination= { {pageSizeOptions: ['10', '20'], showSizeChanger: true}} columns={columns} dataSource={this.state.vehiclesData} />
+        <Table pagination= { {pageSizeOptions: ['5','10','20'], defaultPageSize: 5,showSizeChanger: true}} columns={columns} dataSource={this.state.vehiclesData} />
         
         <Modal
           title="Vehicle Reservation"
