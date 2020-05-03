@@ -58,6 +58,7 @@ class AdminMembership extends React.Component {
       // alert(" The url is: " + url);// The url is: http://localhost:4002/api/modifyMembership
       axios.post(url, {membershipId: record.userId})
           .then((res) => {
+            this.getAllMemberships();
               console.log(res.data)
           }).catch((error) => {
               console.log(error)
@@ -66,7 +67,7 @@ class AdminMembership extends React.Component {
       // this.setState({ name: '', email: '' })
 
       //Refresh the page again
-      window.location.reload(false);
+      // window.location.reload(false);
     }
 
     showModal = () => {
