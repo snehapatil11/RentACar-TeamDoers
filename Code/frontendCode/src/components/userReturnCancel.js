@@ -65,22 +65,38 @@ class ReturnCancel extends React.Component {
   }
 
   calculateFee(record) {
-    var rStDate = record.rentedDateTime;
-    var rEndDate = new Date();
-    var rStDate_format = moment(rStDate).toDate();
-    var rEndDate_format = moment(rEndDate).toDate();
-    //alert("The give dates are: " + rStDate + " "+rEndDate);    
-    var Difference_In_Time = rEndDate_format - rStDate_format;
-    var Difference_In_Hours = Math.ceil(Difference_In_Time / (1000 * 3600));
-    /** Dynamic pricing */
-    var totalHours = Difference_In_Hours;
-    if(totalHours<=0){
-      this.setState({ hoursGtZero: false })
-      totalHours=0;
+    var sum=0;
+    var expEndDate=moment(record.rentEndDateTime,'YYYY-MM-DD HH-mm');
+
+    var rStDate = moment(record.rentedDateTime,'YYYY-MM-DD HH-mm');
+    var now = moment(new Date(),'YYYY-MM-DD HH-mm');
+
+    var expectedHours=Math.ceil(expEndDate.diff(rStDate)/(1000 * 3600));
+    var commencedHours=Math.ceil(now.diff(rStDate)/(1000 * 3600));
+    //if commencedHours is negative, future start. Positive if already started
+
+    if(commencedHours<-1){
+      // alert("Cancelled in advance");
+      this.hours=0;
+      return sum;
+    }else if(commencedHours>expectedHours){
+      // alert("Returned late");
+      var penaltyHours=commencedHours-expectedHours;
+      var realFee=this.calculateFeeByHours(expectedHours);
+      var penaltyFee=this.calculateFeeByHours(penaltyHours);
+      this.hours=commencedHours+expectedHours;
+      var totalSum=realFee+(penaltyFee*2);
+      return totalSum;
     }else{
-      this.setState({ hoursGtZero: true })
+      var inbetweenHours=Math.ceil(now.diff(expEndDate)/(1000 * 3600));
+      // alert(inbetweenHours);
+      // alert("Returned in time");
+      this.hours=expectedHours;
+      var realFee=this.calculateFeeByHours(expectedHours);
+      return realFee;
     }
-    return totalHours;
+    
+    // return commencedHours;
   }
 
   calculateFeeByHours(Difference_In_Hours) {
@@ -101,9 +117,7 @@ class ReturnCancel extends React.Component {
     if(selectedComment=="" || selectedComment==null){
       selectedComment="No comment";
     }
-    var totalHours = this.calculateFee(record);
-    var sum = this.calculateFeeByHours(totalHours);
-    // alert("It was " + Math.abs(totalHours) + " hours you spent. \nYour bill is: " + Math.abs(sum) + "$");
+
     e.preventDefault()
     const url = `${apiConfig.endpointURL}/returnCancel`;
     axios.post(url, { vehicleTransactionId: record.vehicleTransactionId, comment: selectedComment })
@@ -113,8 +127,7 @@ class ReturnCancel extends React.Component {
       }).catch((error) => {
         console.log(error)
       });
-    // window.location.reload(false);
-    // this.componentDidMount();
+
   }
 
   showModal = () => {
@@ -125,9 +138,7 @@ class ReturnCancel extends React.Component {
 
   checkModal = (record, e) => {
     this.selectedRecord = record;
-    this.hours = this.calculateFee(record);
-    this.billSum = this.calculateFeeByHours(this.hours);
-    // alert(this.billSum);
+    this.billSum = this.calculateFee(record);
     this.setState({
       visible: true,
 
@@ -467,22 +478,7 @@ class ReturnCancel extends React.Component {
               </Col>
             </Row>
             <br></br>
-            <Row>
-              <Col span={14}>
-                <label>Billing Details</label>
-              </Col>
-            </Row>
-            <Row>
-              <p style={{
-                backgroundColor: 'white', fontWeight: '500',
-                fontFamily: 'inherit',
-                color: 'brown'
-              }}>
-                <br></br>
-                                        For the first 10 hours, it is 100$. <br /> For every subsequent usage of 10 hours, the price reduces by 1%
-                                        </p>
-            </Row>
-            <br></br>
+            <br></br><br></br>
             <Row>
               <Col span={14}>
                 {/* <label>Pay now?</label> */}
@@ -505,6 +501,27 @@ class ReturnCancel extends React.Component {
               }}
                 size="medium" style={{ width: '100%' }}>
                 No, I will Pay later </Button> */}
+            </Row>
+            <br></br>
+            <Row>
+              <Col span={14}>
+                <u><b><label>Billing Details:</label></b></u>
+              </Col>
+            </Row>
+            <Row>
+              <p style={{
+                backgroundColor: 'white', fontWeight: '500',
+                fontFamily: 'inherit',
+                color: 'brown'
+              }}>
+                
+                                        1) For the first 10 hours, it is 100$. <br /> 
+                                        2) For every subsequent usage of 10 hours, the price reduces by 1%
+                                        <br>
+                                        </br>
+                                        3) If cancelled atleast one hour prior, no penalty. <br></br>
+                4) If returned late, charges double every extra hour.
+                                        </p>
             </Row>
             <br></br>
               <p size="6"> * Your registered card will be used for payment. </p>
