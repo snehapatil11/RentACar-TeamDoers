@@ -108,12 +108,13 @@ class ReturnCancel extends React.Component {
     const url = `${apiConfig.endpointURL}/returnCancel`;
     axios.post(url, { vehicleTransactionId: record.vehicleTransactionId, comment: selectedComment })
       .then((res) => {
+        this.getAllReservations();
         console.log(res.data)
       }).catch((error) => {
         console.log(error)
       });
     // window.location.reload(false);
-    this.componentDidMount();
+    // this.componentDidMount();
   }
 
   showModal = () => {
@@ -142,17 +143,17 @@ class ReturnCancel extends React.Component {
     })
   }
 
-  paymentModal = () => {
-    this.selectedRecord = record;
-    this.hours = this.calculateFee(record);
-    this.billSum = this.calculateFeeByHours(this.hours);
-    // alert(this.billSum);
-    this.setState({
-      visible: true,
+  // paymentModal = () => {
+  //   this.selectedRecord = record;
+  //   this.hours = this.calculateFee(record);
+  //   this.billSum = this.calculateFeeByHours(this.hours);
+  //   // alert(this.billSum);
+  //   this.setState({
+  //     visible: true,
 
-    })
-    // this.modify(record, e);
-  }
+  //   })
+  //   // this.modify(record, e);
+  // }
 
   handleOk = e => {
     console.log(e);

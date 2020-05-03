@@ -11,7 +11,7 @@ export const apiConfig = {
 
 function getAllMemberships() 
 {    
-    // alert(`${apiConfig.endpointURL}/allMemberships/`);
+    console.log(`${apiConfig.endpointURL}/allMemberships/`);
     return fetch(`${apiConfig.endpointURL}/allMemberships/`)
     .then(response => {
         return response.json()

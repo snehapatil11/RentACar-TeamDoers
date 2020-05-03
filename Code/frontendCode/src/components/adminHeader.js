@@ -45,9 +45,9 @@ return (
     >
       <Menu.Item key="4" onClick={this.clickedLogout} style={{color:'white', float:'right'}}>Logout</Menu.Item>
 
-      <Menu.Item key="3" onClick={this.clickedAdd} style={{color:'white', float:'right'}}>Home</Menu.Item>
+      {/* <Menu.Item key="3" onClick={this.clickedAdd} style={{color:'white', float:'right'}}>Home</Menu.Item> */}
 
-      <Menu.Item key="1" onClick={this.clickedTerminateMem} style={{color:'white', float:'right'}}>Add a new vehicle</Menu.Item>
+      <Menu.Item key="1" onClick={this.clickedTerminateMem} style={{color:'white', float:'right'}}>Terminate</Menu.Item>
      
     </Menu>
   

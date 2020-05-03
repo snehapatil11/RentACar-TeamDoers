@@ -3,7 +3,7 @@ class UserTypeFactory {
     static userTypeURL(userType) {
      if(userType === 'admin') {
 
-        return '/admin/profile/';
+        return '/adminMembership/';
      }
      else{
         return '/profile/';

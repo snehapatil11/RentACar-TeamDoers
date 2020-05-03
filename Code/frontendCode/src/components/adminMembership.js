@@ -249,8 +249,8 @@ class AdminMembership extends React.Component {
     const onCreate = values => {          
         console.log("Received values of form: ", values);
         var member = this.state.membershipId;
-        var startDate = moment(values.startDate).format('YYYY-MM-DD HH-mm');
-        var endDate = moment(values.endDate).format('YYYY-MM-DD HH-mm');
+        var startDate = moment(values.startDate).format('DD/MM/YYYY');
+        var endDate = moment(values.endDate).format('DD/MM/YYYY');
         
         
         modifyMembership.getAllMemberships(member, startDate).then(membershipData =>{           

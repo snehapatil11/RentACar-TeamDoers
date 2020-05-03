@@ -64,7 +64,7 @@ return (
       <Menu.Item key="2" onClick={this.clickedJoinUs}>Join Us</Menu.Item>
       <Menu.Item key="3" onClick={this.clickedSignin}>Sign in</Menu.Item>
       {/* <Menu.Item key="5" onClick={this.clickedAdmin}>Admin</Menu.Item> */}
-      <Menu.Item key="6" onClick={this.clickedMembership}>Admin - Membership</Menu.Item>
+      {/* <Menu.Item key="6" onClick={this.clickedMembership}>Admin - Membership</Menu.Item> */}
 
     </Menu>
   </Header>
