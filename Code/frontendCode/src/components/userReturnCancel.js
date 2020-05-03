@@ -14,7 +14,7 @@ import axios from 'axios';
 import { Redirect } from 'react-router';
 
 export const apiConfig = {
-  endpointURL: "http://localhost:4002/api"
+  endpointURL: valuesExport.endpointURL
 }
 const { Panel } = Collapse;
 const { Option } = Select;
