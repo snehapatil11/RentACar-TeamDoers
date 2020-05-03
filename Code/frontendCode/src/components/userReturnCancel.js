@@ -37,6 +37,7 @@ class ReturnCancel extends React.Component {
       ready: false,
       redirectPage: '',
       stateCC:false,
+      hoursGtZero:false,
     },
     user_id = localStorage.getItem('user_id');
   }
@@ -51,31 +52,6 @@ class ReturnCancel extends React.Component {
   // };
 
   async componentDidMount() {
-    // if (user_id) {
-    //   await axios.get(valuesExport.endpointURL + '/user/info/' + user_id)
-    //     .then((response) => {
-
-
-    //       if (response.data) {
-    //         this.setState({
-    //           userinfo: response.data,
-
-    //           startDate: moment(response.data[0].memStartDate, 'DD/MM/YYYY'),
-    //           endDate: moment(response.data[0].memEndDate, 'DD/MM/YYYY'),
-    //           userID: response.data[0].userId,
-    //           name: response.data[0].name,
-    //           ready: true
-
-    //         })
-    //       }
-
-    //     })
-    //     .catch((error) => {
-
-    //       console.log(error);
-    //     })
-
-    // }
     this.getAllReservations();
   }
 
@@ -98,6 +74,12 @@ class ReturnCancel extends React.Component {
     var Difference_In_Hours = Math.ceil(Difference_In_Time / (1000 * 3600));
     /** Dynamic pricing */
     var totalHours = Difference_In_Hours;
+    if(totalHours<=0){
+      this.setState({ hoursGtZero: false })
+      totalHours=0;
+    }else{
+      this.setState({ hoursGtZero: true })
+    }
     return totalHours;
   }
 
@@ -130,7 +112,8 @@ class ReturnCancel extends React.Component {
       }).catch((error) => {
         console.log(error)
       });
-    window.location.reload(false);
+    // window.location.reload(false);
+    this.componentDidMount();
   }
 
   showModal = () => {
@@ -461,9 +444,9 @@ class ReturnCancel extends React.Component {
               <Button key="back" onClick={this.handleCancel}>
                 Return
                 </Button>,
-              <Button key="submit" type="primary" onClick={this.handleOk}>
-                Submit
-              </Button>
+              // <Button key="submit" type="primary" onClick={this.handleOk}>
+                // Submit
+              // </Button>
             ]}>
             <Row>
               <Col span={14}>
@@ -512,25 +495,29 @@ class ReturnCancel extends React.Component {
             <br></br>
             <Row>
               <Col span={14}>
-                <label>Pay now?</label>
+                {/* <label>Pay now?</label> */}
               </Col>
             </Row>
 
             <Row>
-              <Button onClick={(e) => {
+              <Button 
+              onClick={(e) => {
                 this.modify(this.selectedRecord, e);
+                this.handleOk();
                 // this.checkModal;
               }}
-                size="medium" style={{ width: '100%', backgroundColor: 'green' }}>
-                Yes</Button>
+                size="medium" style={{ width: '100%', backgroundColor: 'green', color:'white', marginLeft:'35%', marginRight:'35%' }}>
+                Pay now </Button>
               <br></br><br></br> 
-              <Button onClick={(e) => {
-                    window.location.reload(false);
+              {/* <Button onClick={(e) => {
+                    // window.location.reload(false);
+                    this.componentDidMount();
               }}
                 size="medium" style={{ width: '100%' }}>
-                No, I will Pay later </Button>
+                No, I will Pay later </Button> */}
             </Row>
-
+            <br></br>
+              <p size="6"> * Your registered card will be used for payment. </p>
           </Modal>
 
           {/* <Button onClick={this.checkModal}></Button> */}
