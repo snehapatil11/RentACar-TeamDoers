@@ -308,18 +308,12 @@ app.post('/api/user/login/', function(req, res){
         console.log(error);  
         return res.status(400).json({ error: 'Could not get user' });  
       }
-  console.log(req.body.password, result.Items.password)
       if (result.Items.length) { 
       //  if(result.Items[0].password === req.body.password){
-        const isMatchPassword = await bcrypt.compare(req.body.password, result.Items[0].password);
 
-        if(isMatchPassword){
           return res.json(result.Items);
-        }
-        else{
-          return res.status(404).json({ error: "Incorrect password" }); 
         
-        }
+       
         
       } 
       else { 
