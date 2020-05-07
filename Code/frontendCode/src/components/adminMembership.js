@@ -11,9 +11,10 @@ import { modifyMembership } from "../services/modifyMembership";
 import ReservationForm from './reservationForm';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import valuesExport from '../config/config';
 
 export const apiConfig = {
-    endpointURL: "http://localhost:4002/api"
+    endpointURL: valuesExport.endpointURL
 }
 
 class AdminMembership extends React.Component {
